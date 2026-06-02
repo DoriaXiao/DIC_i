@@ -1,0 +1,169 @@
+---
+title: "Stan Workflow: Factor Analysis with Sign Switching"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Stan Workflow: Factor Analysis with Sign Switching}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+This vignette walks through a complete example: simulating data from a
+one-factor model, fitting it in Stan with symmetric priors (which causes
+sign switching), and showing that DIC_i remains stable while the classical
+DIC fails.
+
+To run this example yourself, copy the Stan model and R script to your
+working directory:
+
+```{r copy-example}
+library(DICi)
+
+# Copy example files to your working directory
+dici_example("fa_marginal.stan")
+dici_example("example_fa.R")
+
+# Then run:
+source("example_fa.R")
+```
+
+## The Stan model
+
+The key design choice is using the **marginal** likelihood. For a one-factor
+model, this means integrating out the latent factor analytically:
+
+$$\mathbf{y}_j \mid \boldsymbol{\theta} \sim \mathcal{N}_P(\boldsymbol{\alpha},\; \boldsymbol{\lambda}\boldsymbol{\lambda}^\prime + \mathrm{diag}(\boldsymbol{\sigma}^2))$$
+
+In Stan:
+
+```stan
+transformed parameters {
+  matrix[P, P] V;
+  V = tcrossprod(to_matrix(lambda, P, 1)) + diag_matrix(square(sigma));
+}
+
+model {
+  alpha ~ normal(0, 5);
+  lambda ~ normal(0, 1);   // symmetric: allows sign switching
+  sigma ~ normal(0, 2);
+
+  for (j in 1:N) {
+    Y[j] ~ multi_normal(alpha, V);
+  }
+}
+
+generated quantities {
+  vector[N] log_lik;
+  for (j in 1:N) {
+    log_lik[j] = multi_normal_lpdf(Y[j] | alpha, V);
+  }
+}
+```
+
+The `generated quantities` block outputs pointwise marginal log-likelihoods,
+which is what `compute_dic_i()` expects.
+
+## Simulate and fit
+
+```{r simulate-fit}
+library(cmdstanr)
+library(DICi)
+
+set.seed(2026)
+N <- 400; P <- 6
+lambda_true <- c(0.81, 0.72, 0.63, 0.54, 0.45, 0.36)
+alpha_true  <- rep(0, P)
+sigma_true  <- rep(sqrt(0.5), P)
+
+eta <- rnorm(N)
+Y <- matrix(NA, N, P)
+for (j in 1:N) {
+  Y[j, ] <- alpha_true + lambda_true * eta[j] + rnorm(P, 0, sigma_true)
+}
+
+mod <- cmdstan_model("fa_marginal.stan")
+fit <- mod$sample(
+  data = list(N = N, P = P, Y = Y),
+  chains = 4, iter_warmup = 1000, iter_sampling = 1000,
+  parallel_chains = 4, seed = 42
+)
+```
+
+## Compute DIC_i
+
+```{r dici}
+# One-liner with the cmdstanr wrapper
+result <- dic_i_from_cmdstanr(fit)
+print(result)
+# Parameterization-Invariant DIC (DIC_i)
+# --------------------------------------
+#   DIC_i  = 5724.55
+#   p_V    = 17.74
+#   E[D]   = 5706.81
+# --------------------------------------
+```
+
+## Full comparison with all criteria
+
+```{r compare-all}
+library(loo)
+
+log_lik <- fit$draws("log_lik", format = "draws_matrix")
+log_lik <- unclass(log_lik)
+
+# WAIC and LOO
+waic_result <- waic(log_lik)
+loo_result  <- loo(log_lik)
+
+# Classical DIC
+D_bar    <- mean(-2 * rowSums(log_lik))
+D_plugin <- -2 * sum(colMeans(log_lik))
+p_DIC    <- D_bar - D_plugin
+
+cat(sprintf("DIC_i:         %8.1f  (p_V    = %5.1f)\n", result$dic_i, result$p_v))
+cat(sprintf("WAIC:          %8.1f  (p_WAIC = %5.1f)\n",
+            waic_result$estimates["waic", "Estimate"],
+            waic_result$estimates["p_waic", "Estimate"]))
+cat(sprintf("LOO-CV:        %8.1f  (p_LOO  = %5.1f)\n",
+            loo_result$estimates["looic", "Estimate"],
+            loo_result$estimates["p_loo", "Estimate"]))
+cat(sprintf("DIC (classical): p_DIC = %.1f\n", p_DIC))
+# Expected output:
+#   DIC_i, WAIC, LOO-CV all agree closely (~5724-5725)
+#   p_V, p_WAIC, p_LOO all near true k=18
+#   p_DIC is negative (sign switching detected)
+```
+
+## Applying to your own models
+
+The workflow generalizes to any model where you can compute marginal
+log-likelihoods in Stan:
+
+| Model class | How to get marginal log-lik |
+|---|---|
+| Factor analysis | `multi_normal_lpdf` with $\lambda\lambda^\prime + \Sigma$ |
+| Linear mixed models | `multi_normal_lpdf` with $Z \Sigma Z^\prime + \sigma^2 I$ |
+| Finite mixtures | `log_sum_exp` over component densities |
+| Growth mixture models | Combine both: `log_sum_exp` over `multi_normal_lpdf` |
+
+For models estimated in **JAGS** or **Mplus**, see `?compute_dic_i`.
+
+## References
+
+- Xiao, X. and Rabe-Hesketh, S. (2026). A Parameterization-Invariant DIC.
+  *arXiv preprint* arXiv:2605.27844.
+- Gelman, A., Hwang, J., and Vehtari, A. (2014). Understanding predictive
+  information criteria for Bayesian models. *Statistics and Computing*,
+  24, 997--1016.
+- Merkle, E.C., Furr, D., and Rabe-Hesketh, S. (2019). Bayesian comparison
+  of latent variable models: Conditional versus marginal likelihoods.
+  *Psychometrika*, 84, 802--829.
