@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use DICi, please cite the paper below."
+title: "DICi: Parameterization-Invariant Deviance Information Criterion"
+type: software
+authors:
+  - family-names: Xiao
+    given-names: Xingyao
+    orcid: "https://orcid.org/0000-0001-8430-0438"
+  - family-names: Rabe-Hesketh
+    given-names: Sophia
+repository-code: "https://github.com/DoriaXiao/DIC_i"
+license: MIT
+preferred-citation:
+  type: article
+  title: "A Parameterization-Invariant DIC"
+  authors:
+    - family-names: Xiao
+      given-names: Xingyao
+    - family-names: Rabe-Hesketh
+      given-names: Sophia
+  year: 2026
+  journal: "arXiv preprint arXiv:2605.27844"
+  url: "https://arxiv.org/abs/2605.27844"
