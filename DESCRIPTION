@@ -2,7 +2,7 @@ Package: DICi
 Title: Parameterization-Invariant Deviance Information Criterion for Latent Variable Models
 Version: 0.1.0
 Authors@R: c(
-    person("Xingyao", "Xiao", email = "xingyao.xiao@stanford.edu",
+    person("Xingyao", "Xiao", email = "xiaoxg@berkeley.edu",
            role = c("aut", "cre")),
     person("Sophia", "Rabe-Hesketh", email = "sophiarh@berkeley.edu",
            role = "aut")
@@ -12,7 +12,7 @@ Description: Computes DIC_i, a parameterization-invariant, plug-in-free
     comparison (Xiao and Rabe-Hesketh, 2026, <arXiv:2605.27844>). DIC_i adds
     the variance-based penalty of Gelman, Hwang and Vehtari (2014,
     <doi:10.1007/s11222-013-9416-2>) to the posterior mean deviance instead
-    of the plug-in deviance used by the classical DIC. By removing the
+    of the plug-in deviance used by the classic DIC. By removing the
     plug-in deviance, DIC_i is invariant to reparameterization and therefore
     robust to the multimodal posteriors caused by sign switching, label
     switching, and parameterization switching in latent variable models.

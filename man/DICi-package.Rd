@@ -45,7 +45,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Xingyao Xiao \email{xingyao.xiao@stanford.edu}
+\strong{Maintainer}: Xingyao Xiao \email{xiaoxg@berkeley.edu}
 
 Authors:
 \itemize{

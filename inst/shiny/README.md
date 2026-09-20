@@ -10,9 +10,9 @@ priors, chains initialised at opposite signs to induce sign switching) and
 shows, across a grid of loadings (Tab 1) or sample sizes (Tab 2):
 
 1. **Penalty stability** — `p_V` and `p_WAIC` stay near the true `k`, while the
-   classical plug-in penalty `p_DIC` collapses to large negative values.
+   classic plug-in penalty `p_DIC` collapses to large negative values.
 2. **Penalty convergence** — `p_V - p_WAIC -> 0` (Section 4.2).
-3. **Criterion alignment** — `DIC_i ≈ WAIC`, while classical `DIC` and Gelman's
+3. **Criterion alignment** — `DIC_i ≈ WAIC`, while classic `DIC` and Gelman's
    `DIC_p` diverge from WAIC as mirror images.
 
 ## Run locally

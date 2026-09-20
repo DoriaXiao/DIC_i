@@ -14,7 +14,7 @@ Gelman et al. (2014b) to the posterior **mean** deviance $E[D(\theta)]$:
 
 $$\mathrm{DIC}_i = E[D(\theta)] + \tfrac12 \mathrm{Var}[D(\theta)].$$
 
-Unlike the classical DIC, DIC_i never evaluates the deviance at a point
+Unlike the classic DIC, DIC_i never evaluates the deviance at a point
 estimate, so it:
 
 - **Never produces negative penalty terms**, even under sign switching
@@ -32,7 +32,7 @@ estimate, so it:
 | Criterion | Formula | Source |
 |---|---|---|
 | **DIC_i** (this package) | $E[D(\theta)] + p_V$ | Xiao & Rabe-Hesketh (2026) |
-| Classical DIC | $D(\bar\theta) + 2 p_{\mathrm{DIC}}$,  $p_{\mathrm{DIC}} = E[D] - D(\bar\theta)$ | Spiegelhalter et al. (2002) |
+| Classic DIC | $D(\bar\theta) + 2 p_{\mathrm{DIC}}$,  $p_{\mathrm{DIC}} = E[D] - D(\bar\theta)$ | Spiegelhalter et al. (2002) |
 | DIC_p (variance-based) | $D(\bar\theta) + 2 p_V$ | Gelman et al. (2014b) |
 
 > **Note.** The penalty $p_V = \tfrac12\mathrm{Var}(D)$ is **Gelman et al.
@@ -113,8 +113,8 @@ cat(sprintf("p_V = %.1f, p_WAIC = %.1f, p_LOO = %.1f\n",
 
 The package includes a complete factor analysis example demonstrating sign
 switching. The example simulates data, fits a one-factor model in Stan with
-symmetric priors, computes DIC_i alongside classical DIC / DIC_p / WAIC / LOO,
-and shows that DIC_i remains stable while the classical DIC penalty becomes
+symmetric priors, computes DIC_i alongside classic DIC / DIC_p / WAIC / LOO,
+and shows that DIC_i remains stable while the classic DIC penalty becomes
 negative.
 
 ```r

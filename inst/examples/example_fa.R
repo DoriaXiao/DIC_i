@@ -58,10 +58,10 @@ cat("\n--- R-hat diagnostics for lambda[1] ---\n")
 rhat_rank <- rhat(lambda_array[, , "lambda[1]"])
 rhat_classic <- rhat_basic(lambda_array[, , "lambda[1]"])
 cat(sprintf("  Rank-normalized R-hat: %.3f\n", rhat_rank))
-cat(sprintf("  Classical R-hat:       %.3f\n", rhat_classic))
+cat(sprintf("  Classic R-hat:       %.3f\n", rhat_classic))
 
 if (rhat_classic > 1.5) {
-  cat("  >>> Large classical R-hat indicates sign switching between chains.\n")
+  cat("  >>> Large classic R-hat indicates sign switching between chains.\n")
 }
 
 # --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ cat("\n")
 print(result)
 
 # --------------------------------------------------------------------------
-# 5. Compute classical DIC and Gelman's DIC_p for comparison
+# 5. Compute classic DIC and Gelman's DIC_p for comparison
 # --------------------------------------------------------------------------
 log_lik <- fit$draws("log_lik", format = "draws_matrix")
 log_lik <- unclass(log_lik)
@@ -83,7 +83,7 @@ D_bar <- mean(-2 * rowSums(log_lik))
 # Plug-in deviance: deviance at posterior mean of pointwise log-lik
 D_plugin <- -2 * sum(colMeans(log_lik))
 
-# Classical penalty and DIC (Spiegelhalter et al., 2002): can go negative
+# Classic penalty and DIC (Spiegelhalter et al., 2002): can go negative
 p_DIC <- D_bar - D_plugin
 DIC_classical <- D_bar + 2 * p_DIC   # = 2 * D_bar - D_plugin
 
@@ -121,7 +121,7 @@ cat("==========================================\n")
 
 if (p_DIC < 0) {
   cat("\n  >>> p_DIC is NEGATIVE: sign switching detected!\n")
-  cat("  >>> Classical DIC and Gelman's DIC_p are meaningless (both use the\n")
+  cat("  >>> Classic DIC and Gelman's DIC_p are meaningless (both use the\n")
   cat("  >>> plug-in deviance D(theta-bar)).\n")
   cat("  >>> DIC_i remains stable and close to WAIC.\n")
 } else {

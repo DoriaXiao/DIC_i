@@ -1,7 +1,7 @@
 #' Compute the Parameterization-Invariant DIC (DIC_i)
 #'
 #' Computes DIC_i, the parameterization-invariant Deviance Information
-#' Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classical
+#' Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classic
 #' DIC, DIC_i does not depend on a plug-in estimate of the deviance and is
 #' therefore robust to the multimodal posteriors caused by sign switching,
 #' label switching, and parameterization switching in latent variable models.
@@ -49,7 +49,7 @@
 #' here denoted \eqn{\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V}, is that DIC_i
 #' uses the posterior **mean** deviance \eqn{E[D(\theta)]} in place of the
 #' plug-in deviance \eqn{D(\bar{\theta})}. The plug-in deviance is what makes
-#' the classical DIC (and DIC_p) unstable under multimodality, so removing it
+#' the classic DIC (and DIC_p) unstable under multimodality, so removing it
 #' is what gives DIC_i its invariance. DIC_i is asymptotically equivalent to
 #' the WAIC (Watanabe, 2010) but does not require the likelihood to factorize
 #' into independent pointwise contributions.

@@ -25,7 +25,7 @@ remotes::install_github("DoriaXiao/DIC_i")
 DIC_i is a parameterization-invariant, plug-in-free version of the Deviance
 Information Criterion for Bayesian model comparison. It adds the
 variance-based penalty of Gelman et al. (2014b) to the posterior **mean**
-deviance, rather than to the unstable plug-in deviance used by the classical
+deviance, rather than to the unstable plug-in deviance used by the classic
 DIC:
 
 $$\mathrm{DIC}_i = E[D(\theta)] + \frac{1}{2} \mathrm{Var}[D(\theta)]$$

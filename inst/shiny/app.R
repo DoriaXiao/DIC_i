@@ -129,7 +129,7 @@ plot_penalties <- function(df, x_var, x_lab) {
       "p_WAIC" = "#4DAF4A",
       "p_DIC (plug-in)" = "#E41A1C")) +
     labs(x = x_lab, y = "Effective Number of Parameters",
-         title = "Penalty Stability: p_V and p_WAIC near k; p_DIC collapses") +
+         title = "Effective number of parameters: p_V and p_WAIC near q; p_DIC collapses") +
     theme_bw(base_size = 13) +
     theme(legend.position = "none",
           strip.text = element_text(face = "bold", size = 11),
@@ -150,11 +150,11 @@ plot_penalty_overlay <- function(df, x_var, x_lab) {
     geom_smooth(se = FALSE, method = "loess", span = 0.55, linewidth = 1) +
     geom_hline(yintercept = k_true, linetype = "dashed", colour = "black") +
     annotate("text", x = min(dat$xval), y = k_true + 0.3,
-             label = paste0("k = ", k_true), hjust = 0, fontface = "italic", size = 4) +
+             label = paste0("q = ", k_true), hjust = 0, fontface = "italic", size = 4) +
     scale_colour_manual(values = c("p_V" = "#377EB8", "p_WAIC" = "#4DAF4A")) +
     scale_shape_manual(values = c(16, 17)) +
     labs(x = x_lab, y = "Effective Number of Parameters",
-         title = "Both penalties converge to k",
+         title = "p_V and p_WAIC converge to q",
          colour = NULL, shape = NULL) +
     theme_bw(base_size = 13) +
     theme(legend.position = c(0.85, 0.15),
@@ -171,7 +171,7 @@ plot_penalty_gap <- function(df, x_var, x_lab) {
                 colour = "#984EA3", linewidth = 1) +
     geom_hline(yintercept = 0, linetype = "dashed", colour = "black") +
     labs(x = x_lab, y = expression(p[V] - p[WAIC]),
-         title = expression(bold("Penalty gap:") ~ p[V] - p[WAIC] %->% 0)) +
+         title = expression(bold("Difference:") ~ p[V] - p[WAIC] %->% 0)) +
     theme_bw(base_size = 13) +
     theme(plot.title = element_text(face = "bold", size = 13))
 }
@@ -184,16 +184,16 @@ plot_criterion_deltas <- function(df, x_var, x_lab) {
               df$DIC_p - df$WAIC,
               df$DIC_i - df$WAIC),
     Criterion = factor(
-      rep(c("DIC (classical)", "DIC_p (Gelman)", "DIC_i (proposed)"),
+      rep(c("DIC (classic)", "DIC_p (Gelman)", "DIC_i (proposed)"),
           each = nrow(df)),
-      levels = c("DIC (classical)", "DIC_p (Gelman)", "DIC_i (proposed)"))
+      levels = c("DIC (classic)", "DIC_p (Gelman)", "DIC_i (proposed)"))
   )
   ggplot(dat, aes(x = xval, y = delta, colour = Criterion)) +
     geom_point(alpha = 0.65, size = 2.5) +
     geom_smooth(se = FALSE, method = "loess", span = 0.55, linewidth = 1.1) +
     geom_hline(yintercept = 0, linetype = "dashed", colour = "black", linewidth = 0.6) +
     scale_colour_manual(
-      values = c("DIC (classical)" = "#E41A1C",
+      values = c("DIC (classic)" = "#E41A1C",
                  "DIC_p (Gelman)" = "#FF7F00",
                  "DIC_i (proposed)" = "#377EB8")) +
     labs(x = x_lab,
@@ -247,14 +247,14 @@ ui <- fluidPage(
                          sidebarPanel(width = 3,
                                       sliderInput("n_tab1", "Sample size (N):", min = 200, max = 1000, value = 400, step = 50),
                                       sliderInput("p_tab1", "Items (p):", min = 4, max = 12, value = 6, step = 1),
-                                      sliderInput("npts_tab1", HTML("Grid points:"), min = 10, max = 40, value = 20, step = 5),
+                                      sliderInput("npts_tab1", "Number of loading values (one simulated dataset each):", min = 10, max = 40, value = 20, step = 5),
                                       actionButton("run_tab1", "Generate New Data", class = "btn-primary"),
                                       hr(),
                                       p(class = "help-text", HTML(
-                                        "<b>Design:</b> 1-factor, symmetric priors, 4 chains at opposite signs. The model has <i>k</i> = 2<i>p</i> free parameters (<i>p</i> loadings, <i>p</i> unique variances; data are mean-centered, so no intercepts).<br><br>
+                                        "<b>Design:</b> 1-factor, symmetric priors, 4 chains at opposite signs. The model has <i>q</i> = 2<i>p</i> free parameters (<i>p</i> loadings, <i>p</i> unique variances; data are mean-centered, so no intercepts).<br><br>
              <b>Mechanism:</b> When chains settle in different sign modes, E[&lambda;] is pulled toward zero &rarr;
              D(&theta;&#772;) explodes &rarr; p<sub>DIC</sub> goes massively negative.<br><br>
-             <b>Key:</b> p<sub><i>V</i></sub> depends on &lambda;&lambda;&prime; (sign-invariant), stays near <i>k</i>."))
+             <b>Key:</b> p<sub><i>V</i></sub> depends on &lambda;&lambda;&prime; (sign-invariant), stays near <i>q</i>."))
                          ),
                          mainPanel(width = 9,
                                    plotOutput("p1_penalties", height = "280px"),
@@ -276,12 +276,12 @@ ui <- fluidPage(
                          sidebarPanel(width = 3,
                                       sliderInput("lam_tab2", HTML("Loading (&lambda;):"), min = 0.3, max = 1.2, value = 0.7, step = 0.05),
                                       sliderInput("p_tab2", "Items (p):", min = 4, max = 12, value = 6, step = 1),
-                                      sliderInput("npts_tab2", "Grid points:", min = 10, max = 30, value = 15, step = 5),
+                                      sliderInput("npts_tab2", "Number of sample sizes (one simulated dataset each):", min = 10, max = 30, value = 15, step = 5),
                                       actionButton("run_tab2", "Generate New Data", class = "btn-primary"),
                                       hr(),
                                       p(class = "help-text", HTML(
                                         "<b>Expect:</b> Larger N sharpens modes &rarr; p<sub>DIC</sub> gets worse.<br>
-             p<sub><i>V</i></sub>, p<sub>WAIC</sub> converge to <i>k</i>.<br>
+             p<sub><i>V</i></sub>, p<sub>WAIC</sub> converge to <i>q</i>.<br>
              DIC<sub><i>i</i></sub> &minus; WAIC &rarr; 0."))
                          ),
                          mainPanel(width = 9,
@@ -338,7 +338,7 @@ server <- function(input, output, session) {
     n_sw <- sum(df$sign_switched)
     paste0("Sign switching: ", n_sw, "/", nrow(df), " (", round(100*n_sw/nrow(df)), "%). ",
            "Mean p_V = ", round(mean(df$pV),1), ", p_WAIC = ", round(mean(df$p_waic),1),
-           " (k = ", df$k[1], "). |DIC_i - WAIC| = ", round(mean(abs(df$DIC_i-df$WAIC)),1), ".")
+           " (q = ", df$k[1], "). |DIC_i - WAIC| = ", round(mean(abs(df$DIC_i-df$WAIC)),1), ".")
   })
 
   # ---- Tab 2 ----
@@ -370,7 +370,7 @@ server <- function(input, output, session) {
     n_sw <- sum(df$sign_switched)
     paste0("Sign switching: ", n_sw, "/", nrow(df), " (", round(100*n_sw/nrow(df)), "%). ",
            "Mean p_V = ", round(mean(df$pV),1), ", p_WAIC = ", round(mean(df$p_waic),1),
-           " (k = ", df$k[1], "). |DIC_i - WAIC| = ", round(mean(abs(df$DIC_i-df$WAIC)),1), ".")
+           " (q = ", df$k[1], "). |DIC_i - WAIC| = ", round(mean(abs(df$DIC_i-df$WAIC)),1), ".")
   })
 }
 
