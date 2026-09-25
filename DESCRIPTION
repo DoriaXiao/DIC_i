@@ -31,6 +31,7 @@ Suggests:
     testthat (>= 3.0.0),
     knitr,
     rmarkdown
+Additional_repositories: https://stan-dev.r-universe.dev
 VignetteBuilder: knitr
 URL: https://github.com/DoriaXiao/DIC_i
 BugReports: https://github.com/DoriaXiao/DIC_i/issues
