@@ -1,0 +1,10 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  getting-started: getting-started.html
+  stan-workflow: stan-workflow.html
+last_built: 2026-09-25T21:01Z
+urls:
+  reference: https://doriaxiao.github.io/DIC_i/reference
+  article: https://doriaxiao.github.io/DIC_i/articles
