@@ -1,0 +1,26 @@
+url: https://doriaxiao.github.io/DIC_i/
+
+template:
+  bootstrap: 5
+  math-rendering: mathjax
+
+reference:
+  - title: Compute and compare DIC_i
+    contents:
+      - compute_dic_i
+      - compare_dic_i
+      - print.DICi
+  - title: Stan workflow
+    contents:
+      - dic_i_from_cmdstanr
+      - dici_example
+  - title: Package
+    contents:
+      - DICi-package
+
+articles:
+  - title: Tutorials
+    navbar: ~
+    contents:
+      - getting-started
+      - stan-workflow

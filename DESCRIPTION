@@ -33,5 +33,5 @@ Suggests:
     rmarkdown
 Additional_repositories: https://stan-dev.r-universe.dev
 VignetteBuilder: knitr
-URL: https://github.com/DoriaXiao/DIC_i
+URL: https://github.com/DoriaXiao/DIC_i, https://doriaxiao.github.io/DIC_i/
 BugReports: https://github.com/DoriaXiao/DIC_i/issues

@@ -17,3 +17,6 @@ src/*.dll
 inst/doc
 /doc/
 /Meta/
+
+# pkgdown site
+docs
