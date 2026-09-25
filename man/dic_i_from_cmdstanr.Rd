@@ -7,7 +7,8 @@
 dic_i_from_cmdstanr(fit, log_lik_name = "log_lik")
 }
 \arguments{
-\item{fit}{A \code{CmdStanMCMC} object from \code{\link[cmdstanr:model-method-sample]{cmdstanr::sample()}}.}
+\item{fit}{A \code{CmdStanMCMC} object, as returned by the \verb{$sample()} method
+of a \pkg{cmdstanr} \code{CmdStanModel}.}
 
 \item{log_lik_name}{Character string giving the name of the log-likelihood
 variable in the Stan model's \verb{generated quantities} block. Default
@@ -18,7 +19,7 @@ A \code{DICi} object (see \code{\link[=compute_dic_i]{compute_dic_i()}}).
 }
 \description{
 Convenience function that extracts the pointwise marginal log-likelihood
-matrix from a \link[cmdstanr:cmdstanr-package]{cmdstanr::cmdstanr} fit object and computes DIC_i.
+matrix from a \pkg{cmdstanr} fit object and computes DIC_i.
 }
 \details{
 This function requires that:
