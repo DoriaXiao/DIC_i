@@ -1,7 +1,7 @@
 #' Extract DIC_i from a CmdStanR fit object
 #'
 #' Convenience function that extracts the pointwise marginal log-likelihood
-#' matrix from a \pkg{cmdstanr} fit object and computes DIC_i.
+#' matrix from a \pkg{cmdstanr} fit object and computes \eqn{\mathrm{DIC}_i}{DIC_i}.
 #'
 #' @param fit A `CmdStanMCMC` object, as returned by the `$sample()` method
 #'   of a \pkg{cmdstanr} `CmdStanModel`.

@@ -1,20 +1,20 @@
 # DICi
 
-Parameterization-Invariant Deviance Information Criterion (DIC_i) for Bayesian Model Comparison
+Parameterization-Invariant Deviance Information Criterion (DIC<sub>i</sub>) for Bayesian Model Comparison
 
 ## Overview
 
-The `DICi` package computes **DIC_i**, a parameterization-invariant,
+The `DICi` package computes **DIC<sub>i</sub>**, a parameterization-invariant,
 plug-in-free version of the Deviance Information Criterion for comparing
 latent variable models (Xiao and Rabe-Hesketh, 2026,
 [arXiv:2605.27844](https://arxiv.org/abs/2605.27844)).
 
-DIC_i adds the variance-based penalty $p_V = \tfrac12 \mathrm{Var}(D)$ of
+DIC<sub>i</sub> adds the variance-based penalty $p_V = \tfrac12 \mathrm{Var}(D)$ of
 Gelman et al. (2014) to the posterior **mean** deviance $E[D(\theta)]$:
 
 $$\mathrm{DIC}_i = E[D(\theta)] + \tfrac12 \mathrm{Var}[D(\theta)].$$
 
-Unlike the classic DIC, DIC_i never evaluates the deviance at a point
+Unlike the classic DIC, DIC<sub>i</sub> never evaluates the deviance at a point
 estimate, so it:
 
 - **Never produces negative penalty terms**, even under sign switching
@@ -22,26 +22,26 @@ estimate, so it:
   switching (overfitted mixtures)
 - **Does not depend on plug-in estimates**, so it is not destabilized by
   multimodal posteriors
-- **Is asymptotically equivalent to WAIC**, but does not require pointwise
-  likelihood factorization
+- **Is asymptotically equivalent to WAIC** in regular, correctly specified
+  models, but does not require pointwise likelihood factorization
 - **Is computationally simple**: only the posterior mean and variance of the
   marginal deviance are needed
 
-### How DIC_i relates to other criteria
+### How DIC<sub>i</sub> relates to other criteria
 
 | Criterion | Formula | Source |
 |---|---|---|
-| **DIC_i** (this package) | $E[D(\theta)] + p_V$ | Xiao & Rabe-Hesketh (2026) |
+| **DIC<sub>i</sub>** (this package) | $E[D(\theta)] + p_V$ | Xiao & Rabe-Hesketh (2026) |
 | Classic DIC | $D(\bar\theta) + 2 p_{\mathrm{DIC}}$,  $p_{\mathrm{DIC}} = E[D] - D(\bar\theta)$ | Spiegelhalter et al. (2002) |
-| DIC_p (variance-based) | $D(\bar\theta) + 2 p_V$ | Gelman et al. (2014) |
+| DIC<sub>p</sub> (variance-based) | $D(\bar\theta) + 2 p_V$ | Gelman et al. (2014) |
 
 > **Note.** The penalty $p_V = \tfrac12\mathrm{Var}(D)$ is **Gelman et al.
-> (2014)'s** penalty — it is not new here. The contribution of DIC_i is to
+> (2014)'s** penalty; it is not new here. The contribution of DIC<sub>i</sub> is to
 > drop the plug-in deviance $D(\bar\theta)$ and use the posterior mean
 > deviance $E[D(\theta)]$ instead, which is what makes the criterion
-> invariant to reparameterization. The closely related **DIC_p** of Gelman
+> invariant to reparameterization. The closely related **DIC<sub>p</sub>** of Gelman
 > et al. (2014) keeps $D(\bar\theta)$ and is therefore **not** robust to the
-> multimodality this package targets — do not confuse the two.
+> multimodality this package targets, so the two should not be confused.
 
 ## Installation
 
@@ -106,15 +106,14 @@ cat(sprintf("p_V = %.1f, p_WAIC = %.1f, p_LOO = %.1f\n",
             dic_result$p_v,
             waic_result$estimates["p_waic", "Estimate"],
             loo_result$estimates["p_loo", "Estimate"]))
-# p_V = 19.0, p_WAIC = 17.4, p_LOO = 17.4
 ```
 
 ## Running the full example
 
 The package includes a complete factor analysis example demonstrating sign
 switching. The example simulates data, fits a one-factor model in Stan with
-symmetric priors, computes DIC_i alongside classic DIC / DIC_p / WAIC / LOO,
-and shows that DIC_i remains stable while the classic DIC penalty becomes
+symmetric priors, computes DIC<sub>i</sub> alongside classic DIC / DIC<sub>p</sub> / WAIC / LOO,
+and shows that DIC<sub>i</sub> remains stable while the classic DIC penalty becomes
 negative.
 
 ```r
@@ -143,7 +142,7 @@ Expected output includes a comparison table:
     LOO-CV     =   5725.1  (p_LOO  =  18.0)
   ------------------------------------------
   Plug-in-dependent criteria:
-    DIC (class)=   5706.8  (p_DIC  =  -0.0)
+    DIC classic=   5706.8  (p_DIC  =  -0.0)
     DIC_p      =   5742.3   [Gelman et al., 2014]
   ------------------------------------------
   True k       = 18

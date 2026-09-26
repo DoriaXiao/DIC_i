@@ -19,7 +19,7 @@ A \code{DICi} object (see \code{\link[=compute_dic_i]{compute_dic_i()}}).
 }
 \description{
 Convenience function that extracts the pointwise marginal log-likelihood
-matrix from a \pkg{cmdstanr} fit object and computes DIC_i.
+matrix from a \pkg{cmdstanr} fit object and computes \eqn{\mathrm{DIC}_i}{DIC_i}.
 }
 \details{
 This function requires that:

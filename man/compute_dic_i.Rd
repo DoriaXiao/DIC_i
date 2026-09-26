@@ -32,7 +32,7 @@ allowed.}
 \value{
 A named list of class \code{"DICi"} with components:
 \describe{
-\item{\code{dic_i}}{The DIC_i value: \eqn{\bar{D} + p_V}.}
+\item{\code{dic_i}}{The \eqn{\mathrm{DIC}_i}{DIC_i} value: \eqn{\bar{D} + p_V}.}
 \item{\code{p_v}}{The variance-based effective number of parameters
 \eqn{p_V = \frac{1}{2} \mathrm{Var}(D(\theta))} of Gelman et al.
 (2014).}
@@ -41,14 +41,14 @@ A named list of class \code{"DICi"} with components:
 }
 }
 \description{
-Computes DIC_i, the parameterization-invariant Deviance Information
+Computes \eqn{\mathrm{DIC}_i}{DIC_i}, the parameterization-invariant Deviance Information
 Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classic
-DIC, DIC_i does not depend on a plug-in estimate of the deviance and is
+DIC, \eqn{\mathrm{DIC}_i}{DIC_i} does not depend on a plug-in estimate of the deviance and is
 therefore robust to the multimodal posteriors caused by sign switching,
 label switching, and parameterization switching in latent variable models.
 }
 \details{
-DIC_i is defined as:
+\eqn{\mathrm{DIC}_i}{DIC_i} is defined as:
 \deqn{\mathrm{DIC}_i = E_{\theta|y}[D(\theta)] + \frac{1}{2}
   \mathrm{Var}_{\theta|y}[D(\theta)]}
 
@@ -58,15 +58,16 @@ deviance. The criterion adds the variance-based penalty
 posterior mean deviance. Both terms are invariant to reparameterization of
 the model parameters, and \eqn{p_V} is always non-negative.
 
-The "i" in DIC_i stands for (parameterization-)\strong{i}nvariant. The key
+The "i" in \eqn{\mathrm{DIC}_i}{DIC_i} stands for (parameterization-)\strong{i}nvariant. The key
 difference from the related variance-based DIC of Gelman et al. (2014),
-here denoted \eqn{\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V}, is that DIC_i
+here denoted \eqn{\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V}, is that \eqn{\mathrm{DIC}_i}{DIC_i}
 uses the posterior \strong{mean} deviance \eqn{E[D(\theta)]} in place of the
 plug-in deviance \eqn{D(\bar{\theta})}. The plug-in deviance is what makes
-the classic DIC (and DIC_p) unstable under multimodality, so removing it
-is what gives DIC_i its invariance. DIC_i is asymptotically equivalent to
-the WAIC (Watanabe, 2010) but does not require the likelihood to factorize
-into independent pointwise contributions.
+the classic DIC (and \eqn{\mathrm{DIC}_p}{DIC_p}) unstable under multimodality, so removing it
+is what gives \eqn{\mathrm{DIC}_i}{DIC_i} its invariance. In regular,
+correctly specified models, \eqn{\mathrm{DIC}_i}{DIC_i} is asymptotically
+equivalent to the WAIC (Watanabe, 2010) but does not require the
+likelihood to factorize into independent pointwise contributions.
 \subsection{Marginal vs. conditional log-likelihoods}{
 
 For meaningful results in latent variable models, the input must be
@@ -79,7 +80,7 @@ density after integrating out random effects) and output pointwise
 contributions in \verb{generated quantities}, the extracted log-likelihoods
 are marginal. This is the recommended workflow.
 \item \strong{JAGS/BUGS:} These programs typically sample latent variables and
-report conditional likelihoods. To use DIC_i, you would need to compute
+report conditional likelihoods. To use \eqn{\mathrm{DIC}_i}{DIC_i}, you would need to compute
 the marginal likelihood yourself, which requires model-specific
 integration (analytic for linear mixed models, numerical otherwise).
 \item \strong{Mplus:} The marginal deviance is reported directly. Use the

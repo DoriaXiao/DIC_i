@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 remotes::install_github("DoriaXiao/DIC_i")
 ```
 
-## What is DIC_i?
+## What is DIC<sub>i</sub>?
 
-DIC_i is a parameterization-invariant, plug-in-free version of the Deviance
+DIC<sub>i</sub> is a parameterization-invariant, plug-in-free version of the Deviance
 Information Criterion for Bayesian model comparison. It adds the
 variance-based penalty of Gelman et al. (2014) to the posterior **mean**
 deviance, rather than to the unstable plug-in deviance used by the classic
@@ -32,10 +32,10 @@ $$\mathrm{DIC}_i = E[D(\theta)] + \frac{1}{2} \mathrm{Var}[D(\theta)]$$
 
 where $D(\theta) = -2 \log f_m(y \mid \theta)$ is the marginal deviance.
 The penalty $p_V = \frac{1}{2}\mathrm{Var}(D)$ is always non-negative, and
-because DIC_i never evaluates the deviance at a point estimate, the whole
+because DIC<sub>i</sub> never evaluates the deviance at a point estimate, the whole
 criterion is invariant to reparameterization.
 
-This is what distinguishes DIC_i from the related variance-based DIC of
+This is what distinguishes DIC<sub>i</sub> from the related variance-based DIC of
 Gelman et al. (2014), $\mathrm{DIC}_p = D(\bar\theta) + 2 p_V$, which keeps
 the plug-in deviance $D(\bar\theta)$ and so remains unstable under
 multimodality.
@@ -67,11 +67,11 @@ result2 <- compute_dic_i(deviance_draws = deviance_draws)
 print(result2)
 ```
 
-The results are identical because DIC_i only needs $E[D]$ and $\mathrm{Var}(D)$.
+The results are identical because DIC<sub>i</sub> only needs $E[D]$ and $\mathrm{Var}(D)$.
 
 ## Comparing models
 
-Fit multiple candidate models, compute DIC_i for each, and compare:
+Fit multiple candidate models, compute DIC<sub>i</sub> for each, and compare:
 
 ```{r compare}
 set.seed(123)
@@ -84,7 +84,7 @@ fit_complex <- compute_dic_i(ll_complex)
 compare_dic_i(simple = fit_simple, complex = fit_complex)
 ```
 
-The model with the lowest DIC_i is preferred. The `delta_dic_i` column shows
+The model with the lowest DIC<sub>i</sub> is preferred. The `delta_dic_i` column shows
 the difference from the best model.
 
 ## Important: Marginal log-likelihoods required
@@ -99,9 +99,9 @@ analysis model in Stan and extracting marginal log-likelihoods.
 
 ## Next steps
 
-- `vignette("stan-workflow")` --- Full Stan example with sign switching
+- `vignette("stan-workflow")`: Full Stan example with sign switching
   demonstration
-- `?compute_dic_i` --- Function reference with details on marginal vs.
+- `?compute_dic_i`: Function reference with details on marginal vs.
   conditional likelihoods
-- `dici_example()` --- Copy example Stan model and R script to your
+- `dici_example()`: Copy example Stan model and R script to your
   working directory
