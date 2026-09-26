@@ -85,3 +85,27 @@ test_that("compare_dic_i validates inputs", {
   expect_error(compare_dic_i(f1, f1), "must be named")
   expect_error(compare_dic_i(a = f1, b = "not_dici"), "not a DICi object")
 })
+
+test_that("arrays with more than two dimensions are rejected", {
+  set.seed(10)
+  ll3 <- array(rnorm(100 * 2 * 5, -2, 0.5), c(100, 2, 5))
+  expect_error(compute_dic_i(ll3), "has 3 dimensions \\(100 x 2 x 5\\)")
+
+  # The suggested reshape gives the same result as stacking chains by hand
+  stacked <- rbind(ll3[, 1, ], ll3[, 2, ])
+  expect_equal(compute_dic_i(matrix(ll3, ncol = dim(ll3)[3])),
+               compute_dic_i(stacked))
+})
+
+test_that("missing values are rejected with their location", {
+  set.seed(11)
+  ll <- matrix(rnorm(50 * 4, -2, 0.5), 50, 4)
+  ll[3, 2] <- NA
+  ll[7, 1] <- NaN
+  expect_error(compute_dic_i(ll), "2 missing value\\(s\\) in 2 row\\(s\\) \\(rows: 3, 7\\)")
+
+  dev <- -2 * rowSums(matrix(rnorm(50 * 4, -2, 0.5), 50, 4))
+  dev[c(1, 2, 3, 4, 5, 6)] <- NA
+  expect_error(compute_dic_i(deviance_draws = dev),
+               "6 missing value\\(s\\) \\(positions: 1, 2, 3, 4, 5, \\.\\.\\.\\)")
+})

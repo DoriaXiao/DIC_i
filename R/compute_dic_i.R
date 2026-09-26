@@ -17,11 +17,16 @@
 #'   models, mixture models), the log-likelihoods must be marginal over the
 #'   latent variables, not conditional on them. See Details.
 #'
+#'   Arrays with more than two dimensions (e.g., iterations x chains x N)
+#'   are rejected; stack the chains first, e.g. `matrix(x, ncol = dim(x)[3])`.
+#'   Missing values are not allowed.
+#'
 #' @param deviance_draws Optional numeric vector of length S containing
 #'   pre-computed marginal deviance draws \eqn{D(\theta^{(s)}) = -2 \sum_i
 #'   \log f(y_i \mid \theta^{(s)})}. If provided, `log_lik` is ignored. This
 #'   is useful when only the joint deviance is available (e.g., from Mplus
-#'   output) and pointwise log-likelihoods are not.
+#'   output) and pointwise log-likelihoods are not. Missing values are not
+#'   allowed.
 #'
 #' @return A named list of class `"DICi"` with components:
 #'   \describe{
@@ -126,14 +131,36 @@ compute_dic_i <- function(log_lik = NULL, deviance_draws = NULL) {
     if (length(deviance_draws) < 2) {
       stop("'deviance_draws' must have at least 2 elements.")
     }
+    if (anyNA(deviance_draws)) {
+      bad <- which(is.na(deviance_draws))
+      stop(sprintf(
+        "'deviance_draws' contains %d missing value(s) (positions: %s).",
+        length(bad), format_positions(bad)
+      ))
+    }
     d <- deviance_draws
   } else {
     if (!is.matrix(log_lik) && !is.array(log_lik)) {
       stop("'log_lik' must be a matrix (S rows x N columns).")
     }
+    if (length(dim(log_lik)) > 2) {
+      stop(sprintf(paste0(
+        "'log_lik' must be an S x N matrix, but has %d dimensions (%s). ",
+        "For an iterations x chains x N array, stack the chains first: ",
+        "matrix(x, ncol = dim(x)[3])."),
+        length(dim(log_lik)), paste(dim(log_lik), collapse = " x ")
+      ))
+    }
     log_lik <- as.matrix(log_lik)
     if (nrow(log_lik) < 2) {
       stop("'log_lik' must have at least 2 rows (posterior draws).")
+    }
+    if (anyNA(log_lik)) {
+      bad <- which(rowSums(is.na(log_lik)) > 0)
+      stop(sprintf(
+        "'log_lik' contains %d missing value(s) in %d row(s) (rows: %s).",
+        sum(is.na(log_lik)), length(bad), format_positions(bad)
+      ))
     }
     d <- -2 * rowSums(log_lik)
   }
@@ -151,6 +178,13 @@ compute_dic_i <- function(log_lik = NULL, deviance_draws = NULL) {
     ),
     class = "DICi"
   )
+}
+
+
+# Format indices for error messages, truncating long lists.
+format_positions <- function(idx, max_show = 5) {
+  shown <- paste(idx[seq_len(min(length(idx), max_show))], collapse = ", ")
+  if (length(idx) > max_show) paste0(shown, ", ...") else shown
 }
 
 
