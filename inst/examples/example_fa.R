@@ -55,8 +55,9 @@ print(fit$summary("lambda"))
 lambda_array <- fit$draws("lambda", format = "draws_array")
 
 cat("\n--- R-hat diagnostics for lambda[1] ---\n")
-rhat_rank <- rhat(lambda_array[, , "lambda[1]"])
-rhat_split <- rhat_basic(lambda_array[, , "lambda[1]"])  # basic split-R-hat (BDA3)
+lambda1    <- extract_variable_matrix(lambda_array, "lambda[1]")  # iterations x chains
+rhat_rank  <- rhat(lambda1)
+rhat_split <- rhat_basic(lambda1)  # basic split-R-hat (BDA3)
 cat(sprintf("  Rank-normalized R-hat: %.3f\n", rhat_rank))
 cat(sprintf("  Basic split R-hat:     %.3f\n", rhat_split))
 
