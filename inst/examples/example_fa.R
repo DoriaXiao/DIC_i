@@ -55,8 +55,9 @@ print(fit$summary("lambda"))
 lambda_array <- fit$draws("lambda", format = "draws_array")
 
 cat("\n--- R-hat diagnostics for lambda[1] ---\n")
-rhat_rank <- rhat(lambda_array[, , "lambda[1]"])
-rhat_split <- rhat_basic(lambda_array[, , "lambda[1]"])  # basic split-R-hat (BDA3)
+lambda1    <- extract_variable_matrix(lambda_array, "lambda[1]")  # iterations x chains
+rhat_rank  <- rhat(lambda1)
+rhat_split <- rhat_basic(lambda1)  # basic split-R-hat (BDA3)
 cat(sprintf("  Rank-normalized R-hat: %.3f\n", rhat_rank))
 cat(sprintf("  Basic split R-hat:     %.3f\n", rhat_split))
 
@@ -80,12 +81,21 @@ log_lik <- unclass(log_lik)
 # Posterior mean deviance
 D_bar <- mean(-2 * rowSums(log_lik))
 
-# Plug-in deviance: deviance at posterior mean of pointwise log-lik
-D_plugin <- -2 * sum(colMeans(log_lik))
+# Plug-in deviance D(theta-bar): the marginal deviance evaluated at the
+# posterior means of the parameters. (Averaging the pointwise log-likelihoods
+# instead, -2 * sum(colMeans(log_lik)), equals D_bar exactly, so p_DIC would
+# always be 0.)
+alpha_bar  <- colMeans(fit$draws("alpha",  format = "draws_matrix"))
+lambda_bar <- colMeans(fit$draws("lambda", format = "draws_matrix"))
+sigma_bar  <- colMeans(fit$draws("sigma",  format = "draws_matrix"))
+V_bar <- tcrossprod(lambda_bar) + diag(sigma_bar^2)
+R_bar <- chol(V_bar)                                    # V_bar = t(R_bar) %*% R_bar
+Z_bar <- backsolve(R_bar, t(Y) - alpha_bar, transpose = TRUE)
+D_plugin <- N * P * log(2 * pi) + 2 * N * sum(log(diag(R_bar))) + sum(Z_bar^2)
 
 # Classic penalty and DIC (Spiegelhalter et al., 2002): can go negative
 p_DIC <- D_bar - D_plugin
-DIC_classical <- D_bar + 2 * p_DIC   # = 2 * D_bar - D_plugin
+DIC_classical <- D_plugin + 2 * p_DIC   # = D_bar + p_DIC
 
 # DIC_p (Gelman et al., 2014): plug-in deviance + variance penalty.
 # Distinct from DIC_i, which uses the posterior mean deviance instead.
