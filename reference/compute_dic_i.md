@@ -28,13 +28,17 @@ compute_dic_i(log_lik = NULL, deviance_draws = NULL)
   mixed models, mixture models), the log-likelihoods must be marginal
   over the latent variables, not conditional on them. See Details.
 
+  Arrays with more than two dimensions (e.g., iterations x chains x N)
+  are rejected; stack the chains first, e.g.
+  `matrix(x, ncol = dim(x)[3])`. Missing values are not allowed.
+
 - deviance_draws:
 
   Optional numeric vector of length S containing pre-computed marginal
   deviance draws \\D(\theta^{(s)}) = -2 \sum_i \log f(y_i \mid
   \theta^{(s)})\\. If provided, `log_lik` is ignored. This is useful
   when only the joint deviance is available (e.g., from Mplus output)
-  and pointwise log-likelihoods are not.
+  and pointwise log-likelihoods are not. Missing values are not allowed.
 
 ## Value
 

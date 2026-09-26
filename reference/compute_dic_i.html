@@ -77,7 +77,10 @@ log-likelihood contribution of observation \(i\) evaluated at posterior
 draw \(s\).</p>
 <p><strong>Important:</strong> For latent variable models (e.g., factor analysis, mixed
 models, mixture models), the log-likelihoods must be marginal over the
-latent variables, not conditional on them. See Details.</p></dd>
+latent variables, not conditional on them. See Details.</p>
+<p>Arrays with more than two dimensions (e.g., iterations x chains x N)
+are rejected; stack the chains first, e.g. <code>matrix(x, ncol = dim(x)[3])</code>.
+Missing values are not allowed.</p></dd>
 
 
 <dt id="arg-deviance-draws">deviance_draws<a class="anchor" aria-label="anchor" href="#arg-deviance-draws"></a></dt>
@@ -85,7 +88,8 @@ latent variables, not conditional on them. See Details.</p></dd>
 pre-computed marginal deviance draws \(D(\theta^{(s)}) = -2 \sum_i
   \log f(y_i \mid \theta^{(s)})\). If provided, <code>log_lik</code> is ignored. This
 is useful when only the joint deviance is available (e.g., from Mplus
-output) and pointwise log-likelihoods are not.</p></dd>
+output) and pointwise log-likelihoods are not. Missing values are not
+allowed.</p></dd>
 
 </dl></div>
     <div class="section level2">
