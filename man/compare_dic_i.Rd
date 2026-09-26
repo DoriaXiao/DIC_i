@@ -14,8 +14,8 @@ A data frame with columns \code{model}, \code{dic_i}, \code{p_v}, \code{e_d},
 \code{delta_dic_i} (difference from the best model).
 }
 \description{
-Compares DIC_i values from multiple fitted models, returning a summary
-table sorted by DIC_i (lowest = preferred).
+Compares \eqn{\mathrm{DIC}_i}{DIC_i} values from multiple fitted models, returning a summary
+table sorted by \eqn{\mathrm{DIC}_i}{DIC_i} (lowest = preferred).
 }
 \examples{
 set.seed(42)

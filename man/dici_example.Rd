@@ -12,7 +12,7 @@ dici_example(name = NULL, copy = TRUE)
 \item{\code{"fa_marginal.stan"}}{Stan model for one-factor analysis with
 marginal likelihood and pointwise log-likelihoods.}
 \item{\code{"example_fa.R"}}{Complete R script: simulate data, fit in
-Stan, compute DIC_i, compare with WAIC/LOO.}
+Stan, compute \eqn{\mathrm{DIC}_i}{DIC_i}, compare with WAIC/LOO.}
 }
 If \code{NULL} (the default), lists all available example files.}
 

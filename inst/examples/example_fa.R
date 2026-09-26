@@ -56,12 +56,12 @@ lambda_array <- fit$draws("lambda", format = "draws_array")
 
 cat("\n--- R-hat diagnostics for lambda[1] ---\n")
 rhat_rank <- rhat(lambda_array[, , "lambda[1]"])
-rhat_classic <- rhat_basic(lambda_array[, , "lambda[1]"])
+rhat_split <- rhat_basic(lambda_array[, , "lambda[1]"])  # basic split-R-hat (BDA3)
 cat(sprintf("  Rank-normalized R-hat: %.3f\n", rhat_rank))
-cat(sprintf("  Classic R-hat:       %.3f\n", rhat_classic))
+cat(sprintf("  Basic split R-hat:     %.3f\n", rhat_split))
 
-if (rhat_classic > 1.5) {
-  cat("  >>> Large classic R-hat indicates sign switching between chains.\n")
+if (rhat_split > 1.5) {
+  cat("  >>> Large basic split R-hat indicates sign switching between chains.\n")
 }
 
 # --------------------------------------------------------------------------
@@ -113,7 +113,7 @@ cat(sprintf("    LOO-CV     = %8.1f  (p_LOO  = %5.1f)\n",
             loo_result$estimates["p_loo", "Estimate"]))
 cat("  ------------------------------------------\n")
 cat("  Plug-in-dependent criteria:\n")
-cat(sprintf("    DIC (class)= %8.1f  (p_DIC  = %5.1f)\n", DIC_classical, p_DIC))
+cat(sprintf("    DIC classic= %8.1f  (p_DIC  = %5.1f)\n", DIC_classical, p_DIC))
 cat(sprintf("    DIC_p      = %8.1f   [Gelman et al., 2014]\n", DIC_p))
 cat("  ------------------------------------------\n")
 cat(sprintf("  True k       = %d\n", 3 * P))

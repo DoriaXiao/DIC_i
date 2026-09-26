@@ -16,8 +16,9 @@ Description: Computes DIC_i, a parameterization-invariant, plug-in-free
     plug-in deviance, DIC_i is invariant to reparameterization and therefore
     robust to the multimodal posteriors caused by sign switching, label
     switching, and parameterization switching in latent variable models.
-    DIC_i is asymptotically equivalent to WAIC but does not require pointwise
-    likelihood factorization.
+    DIC_i is asymptotically equivalent to WAIC in regular, correctly
+    specified models but does not require pointwise likelihood
+    factorization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
