@@ -4,8 +4,8 @@
 
 This vignette walks through a complete example: simulating data from a
 one-factor model, fitting it in Stan with symmetric priors (which causes
-sign switching), and showing that DIC_i remains stable while the classic
-DIC fails.
+sign switching), and showing that DIC_(i) remains stable while the
+classic DIC fails.
 
 To run this example yourself, copy the Stan model and R script to your
 working directory:
@@ -91,7 +91,7 @@ fit <- mod$sample(
 )
 ```
 
-## Compute DIC_i
+## Compute DIC_(i)
 
 ``` r
 

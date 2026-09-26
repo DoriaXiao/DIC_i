@@ -1,7 +1,7 @@
 # Extract DIC_i from a CmdStanR fit object
 
 Convenience function that extracts the pointwise marginal log-likelihood
-matrix from a cmdstanr fit object and computes DIC_i.
+matrix from a cmdstanr fit object and computes \\\mathrm{DIC}\_i\\.
 
 ## Usage
 

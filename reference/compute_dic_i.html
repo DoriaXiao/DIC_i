@@ -5,13 +5,13 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Compute the Parameterization-Invariant DIC (DIC_i) — compute_dic_i"><meta name="description" content="Computes DIC_i, the parameterization-invariant Deviance Information
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Compute the Parameterization-Invariant DIC (DIC_i) — compute_dic_i"><meta name="description" content="Computes \(\mathrm{DIC}_i\), the parameterization-invariant Deviance Information
 Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classic
-DIC, DIC_i does not depend on a plug-in estimate of the deviance and is
+DIC, \(\mathrm{DIC}_i\) does not depend on a plug-in estimate of the deviance and is
 therefore robust to the multimodal posteriors caused by sign switching,
-label switching, and parameterization switching in latent variable models."><meta property="og:description" content="Computes DIC_i, the parameterization-invariant Deviance Information
+label switching, and parameterization switching in latent variable models."><meta property="og:description" content="Computes \(\mathrm{DIC}_i\), the parameterization-invariant Deviance Information
 Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classic
-DIC, DIC_i does not depend on a plug-in estimate of the deviance and is
+DIC, \(\mathrm{DIC}_i\) does not depend on a plug-in estimate of the deviance and is
 therefore robust to the multimodal posteriors caused by sign switching,
 label switching, and parameterization switching in latent variable models."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -52,9 +52,9 @@ label switching, and parameterization switching in latent variable models."></he
     </div>
 
     <div class="ref-description section level2">
-    <p>Computes DIC_i, the parameterization-invariant Deviance Information
+    <p>Computes \(\mathrm{DIC}_i\), the parameterization-invariant Deviance Information
 Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classic
-DIC, DIC_i does not depend on a plug-in estimate of the deviance and is
+DIC, \(\mathrm{DIC}_i\) does not depend on a plug-in estimate of the deviance and is
 therefore robust to the multimodal posteriors caused by sign switching,
 label switching, and parameterization switching in latent variable models.</p>
     </div>
@@ -95,7 +95,7 @@ allowed.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A named list of class <code>"DICi"</code> with components:</p><dl><dt><code>dic_i</code></dt>
-<dd><p>The DIC_i value: \(\bar{D} + p_V\).</p></dd>
+<dd><p>The \(\mathrm{DIC}_i\) value: \(\bar{D} + p_V\).</p></dd>
 
 <dt><code>p_v</code></dt>
 <dd><p>The variance-based effective number of parameters
@@ -110,7 +110,7 @@ allowed.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>DIC_i is defined as:
+    <p>\(\mathrm{DIC}_i\) is defined as:
 $$\mathrm{DIC}_i = E_{\theta|y}[D(\theta)] + \frac{1}{2}
   \mathrm{Var}_{\theta|y}[D(\theta)]$$</p>
 <p>where \(D(\theta) = -2 \log f_m(y \mid \theta)\) is the marginal
@@ -118,15 +118,16 @@ deviance. The criterion adds the variance-based penalty
 \(p_V = \frac{1}{2} \mathrm{Var}(D)\) of Gelman et al. (2014) to the
 posterior mean deviance. Both terms are invariant to reparameterization of
 the model parameters, and \(p_V\) is always non-negative.</p>
-<p>The "i" in DIC_i stands for (parameterization-)<strong>i</strong>nvariant. The key
+<p>The "i" in \(\mathrm{DIC}_i\) stands for (parameterization-)<strong>i</strong>nvariant. The key
 difference from the related variance-based DIC of Gelman et al. (2014),
-here denoted \(\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V\), is that DIC_i
+here denoted \(\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V\), is that \(\mathrm{DIC}_i\)
 uses the posterior <strong>mean</strong> deviance \(E[D(\theta)]\) in place of the
 plug-in deviance \(D(\bar{\theta})\). The plug-in deviance is what makes
-the classic DIC (and DIC_p) unstable under multimodality, so removing it
-is what gives DIC_i its invariance. DIC_i is asymptotically equivalent to
-the WAIC (Watanabe, 2010) but does not require the likelihood to factorize
-into independent pointwise contributions.</p><div class="section">
+the classic DIC (and \(\mathrm{DIC}_p\)) unstable under multimodality, so removing it
+is what gives \(\mathrm{DIC}_i\) its invariance. In regular,
+correctly specified models, \(\mathrm{DIC}_i\) is asymptotically
+equivalent to the WAIC (Watanabe, 2010) but does not require the
+likelihood to factorize into independent pointwise contributions.</p><div class="section">
 <h3 id="marginal-vs-conditional-log-likelihoods">Marginal vs. conditional log-likelihoods<a class="anchor" aria-label="anchor" href="#marginal-vs-conditional-log-likelihoods"></a></h3>
 
 
@@ -138,7 +139,7 @@ density after integrating out random effects) and output pointwise
 contributions in <code>generated quantities</code>, the extracted log-likelihoods
 are marginal. This is the recommended workflow.</p></li>
 <li><p><strong>JAGS/BUGS:</strong> These programs typically sample latent variables and
-report conditional likelihoods. To use DIC_i, you would need to compute
+report conditional likelihoods. To use \(\mathrm{DIC}_i\), you would need to compute
 the marginal likelihood yourself, which requires model-specific
 integration (analytic for linear mixed models, numerical otherwise).</p></li>
 <li><p><strong>Mplus:</strong> The marginal deviance is reported directly. Use the

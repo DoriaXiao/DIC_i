@@ -78,23 +78,23 @@
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DoriaXiao/DIC_i"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="what-is-dic_i">What is DIC_i?<a class="anchor" aria-label="anchor" href="#what-is-dic_i"></a>
+<h2 id="what-is-dici">What is DIC<sub>i</sub>?<a class="anchor" aria-label="anchor" href="#what-is-dici"></a>
 </h2>
-<p>DIC_i is a parameterization-invariant, plug-in-free version of the
-Deviance Information Criterion for Bayesian model comparison. It adds
-the variance-based penalty of Gelman et al. (2014) to the posterior
+<p>DIC<sub>i</sub> is a parameterization-invariant, plug-in-free version
+of the Deviance Information Criterion for Bayesian model comparison. It
+adds the variance-based penalty of Gelman et al. (2014) to the posterior
 <strong>mean</strong> deviance, rather than to the unstable plug-in
 deviance used by the classic DIC:</p>
 <p><span class="math display">\[\mathrm{DIC}_i = E[D(\theta)] +
 \frac{1}{2} \mathrm{Var}[D(\theta)]\]</span></p>
 <p>where <span class="math inline">\(D(\theta) = -2 \log f_m(y \mid
 \theta)\)</span> is the marginal deviance. The penalty <span class="math inline">\(p_V = \frac{1}{2}\mathrm{Var}(D)\)</span> is
-always non-negative, and because DIC_i never evaluates the deviance at a
-point estimate, the whole criterion is invariant to
+always non-negative, and because DIC<sub>i</sub> never evaluates the
+deviance at a point estimate, the whole criterion is invariant to
 reparameterization.</p>
-<p>This is what distinguishes DIC_i from the related variance-based DIC
-of Gelman et al. (2014), <span class="math inline">\(\mathrm{DIC}_p =
-D(\bar\theta) + 2 p_V\)</span>, which keeps the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and so remains unstable
+<p>This is what distinguishes DIC<sub>i</sub> from the related
+variance-based DIC of Gelman et al. (2014), <span class="math inline">\(\mathrm{DIC}_p = D(\bar\theta) + 2 p_V\)</span>,
+which keeps the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and so remains unstable
 under multimodality.</p>
 </div>
 <div class="section level2">
@@ -133,12 +133,12 @@ output), pass it directly:</p>
 <span><span class="co">#&gt;   p_V    = 25.55</span></span>
 <span><span class="co">#&gt;   E[D]   = 200.14</span></span>
 <span><span class="co">#&gt; --------------------------------------</span></span></code></pre></div>
-<p>The results are identical because DIC_i only needs <span class="math inline">\(E[D]\)</span> and <span class="math inline">\(\mathrm{Var}(D)\)</span>.</p>
+<p>The results are identical because DIC<sub>i</sub> only needs <span class="math inline">\(E[D]\)</span> and <span class="math inline">\(\mathrm{Var}(D)\)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="comparing-models">Comparing models<a class="anchor" aria-label="anchor" href="#comparing-models"></a>
 </h2>
-<p>Fit multiple candidate models, compute DIC_i for each, and
+<p>Fit multiple candidate models, compute DIC<sub>i</sub> for each, and
 compare:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -152,7 +152,7 @@ compare:</p>
 <span><span class="co">#&gt;     model    dic_i      p_v      e_d delta_dic_i</span></span>
 <span><span class="co">#&gt; 1  simple 215.8741 15.80440 200.0697     0.00000</span></span>
 <span><span class="co">#&gt; 2 complex 227.7996 38.02143 189.7782    11.92546</span></span></code></pre></div>
-<p>The model with the lowest DIC_i is preferred. The
+<p>The model with the lowest DIC<sub>i</sub> is preferred. The
 <code>delta_dic_i</code> column shows the difference from the best
 model.</p>
 </div>
@@ -173,14 +173,14 @@ log-likelihoods.</p>
 </h2>
 <ul>
 <li>
-<code><a href="../articles/stan-workflow.html">vignette("stan-workflow")</a></code> — Full Stan example with sign
+<code><a href="../articles/stan-workflow.html">vignette("stan-workflow")</a></code>: Full Stan example with sign
 switching demonstration</li>
 <li>
-<code><a href="../reference/compute_dic_i.html">?compute_dic_i</a></code> — Function reference with details on
+<code><a href="../reference/compute_dic_i.html">?compute_dic_i</a></code>: Function reference with details on
 marginal vs. conditional likelihoods</li>
 <li>
-<code><a href="../reference/dici_example.html">dici_example()</a></code> — Copy example Stan model and R script
-to your working directory</li>
+<code><a href="../reference/dici_example.html">dici_example()</a></code>: Copy example Stan model and R script to
+your working directory</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

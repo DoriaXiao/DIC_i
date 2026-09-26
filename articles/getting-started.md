@@ -7,9 +7,9 @@
 remotes::install_github("DoriaXiao/DIC_i")
 ```
 
-## What is DIC_i?
+## What is DIC_(i)?
 
-DIC_i is a parameterization-invariant, plug-in-free version of the
+DIC_(i) is a parameterization-invariant, plug-in-free version of the
 Deviance Information Criterion for Bayesian model comparison. It adds
 the variance-based penalty of Gelman et al. (2014) to the posterior
 **mean** deviance, rather than to the unstable plug-in deviance used by
@@ -20,13 +20,13 @@ the classic DIC:
 
 where \\D(\theta) = -2 \log f_m(y \mid \theta)\\ is the marginal
 deviance. The penalty \\p_V = \frac{1}{2}\mathrm{Var}(D)\\ is always
-non-negative, and because DIC_i never evaluates the deviance at a point
-estimate, the whole criterion is invariant to reparameterization.
+non-negative, and because DIC_(i) never evaluates the deviance at a
+point estimate, the whole criterion is invariant to reparameterization.
 
-This is what distinguishes DIC_i from the related variance-based DIC of
-Gelman et al. (2014), \\\mathrm{DIC}\_p = D(\bar\theta) + 2 p_V\\, which
-keeps the plug-in deviance \\D(\bar\theta)\\ and so remains unstable
-under multimodality.
+This is what distinguishes DIC_(i) from the related variance-based DIC
+of Gelman et al. (2014), \\\mathrm{DIC}\_p = D(\bar\theta) + 2 p_V\\,
+which keeps the plug-in deviance \\D(\bar\theta)\\ and so remains
+unstable under multimodality.
 
 ## Quick start
 
@@ -69,12 +69,12 @@ print(result2)
 #> --------------------------------------
 ```
 
-The results are identical because DIC_i only needs \\E\[D\]\\ and
+The results are identical because DIC_(i) only needs \\E\[D\]\\ and
 \\\mathrm{Var}(D)\\.
 
 ## Comparing models
 
-Fit multiple candidate models, compute DIC_i for each, and compare:
+Fit multiple candidate models, compute DIC_(i) for each, and compare:
 
 ``` r
 
@@ -91,7 +91,7 @@ compare_dic_i(simple = fit_simple, complex = fit_complex)
 #> 2 complex 227.7996 38.02143 189.7782    11.92546
 ```
 
-The model with the lowest DIC_i is preferred. The `delta_dic_i` column
+The model with the lowest DIC_(i) is preferred. The `delta_dic_i` column
 shows the difference from the best model.
 
 ## Important: Marginal log-likelihoods required
@@ -108,10 +108,10 @@ extracting marginal log-likelihoods.
 
 ## Next steps
 
-- [`vignette("stan-workflow")`](https://doriaxiao.github.io/DIC_i/articles/stan-workflow.md)
-  — Full Stan example with sign switching demonstration
-- [`?compute_dic_i`](https://doriaxiao.github.io/DIC_i/reference/compute_dic_i.md)
-  — Function reference with details on marginal vs. conditional
+- [`vignette("stan-workflow")`](https://doriaxiao.github.io/DIC_i/articles/stan-workflow.md):
+  Full Stan example with sign switching demonstration
+- [`?compute_dic_i`](https://doriaxiao.github.io/DIC_i/reference/compute_dic_i.md):
+  Function reference with details on marginal vs. conditional
   likelihoods
-- [`dici_example()`](https://doriaxiao.github.io/DIC_i/reference/dici_example.md)
-  — Copy example Stan model and R script to your working directory
+- [`dici_example()`](https://doriaxiao.github.io/DIC_i/reference/dici_example.md):
+  Copy example Stan model and R script to your working directory

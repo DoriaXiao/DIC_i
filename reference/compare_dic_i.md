@@ -1,7 +1,8 @@
 # Compare DIC_i Across Models
 
-Compares DIC_i values from multiple fitted models, returning a summary
-table sorted by DIC_i (lowest = preferred).
+Compares \\\mathrm{DIC}\_i\\ values from multiple fitted models,
+returning a summary table sorted by \\\mathrm{DIC}\_i\\ (lowest =
+preferred).
 
 ## Usage
 

@@ -17,8 +17,8 @@
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Parameterization-Invariant Deviance Information Criterion for Latent Variable Models">
-<meta name="description" content="Computes DIC_i, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for Bayesian model comparison (Xiao and Rabe-Hesketh, 2026, &lt;arXiv:2605.27844&gt;). DIC_i adds the variance-based penalty of Gelman, Hwang and Vehtari (2014, &lt;doi:10.1007/s11222-013-9416-2&gt;) to the posterior mean deviance instead of the plug-in deviance used by the classic DIC. By removing the plug-in deviance, DIC_i is invariant to reparameterization and therefore robust to the multimodal posteriors caused by sign switching, label switching, and parameterization switching in latent variable models. DIC_i is asymptotically equivalent to WAIC but does not require pointwise likelihood factorization.">
-<meta property="og:description" content="Computes DIC_i, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for Bayesian model comparison (Xiao and Rabe-Hesketh, 2026, &lt;arXiv:2605.27844&gt;). DIC_i adds the variance-based penalty of Gelman, Hwang and Vehtari (2014, &lt;doi:10.1007/s11222-013-9416-2&gt;) to the posterior mean deviance instead of the plug-in deviance used by the classic DIC. By removing the plug-in deviance, DIC_i is invariant to reparameterization and therefore robust to the multimodal posteriors caused by sign switching, label switching, and parameterization switching in latent variable models. DIC_i is asymptotically equivalent to WAIC but does not require pointwise likelihood factorization.">
+<meta name="description" content="Computes DIC_i, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for Bayesian model comparison (Xiao and Rabe-Hesketh, 2026, &lt;arXiv:2605.27844&gt;). DIC_i adds the variance-based penalty of Gelman, Hwang and Vehtari (2014, &lt;doi:10.1007/s11222-013-9416-2&gt;) to the posterior mean deviance instead of the plug-in deviance used by the classic DIC. By removing the plug-in deviance, DIC_i is invariant to reparameterization and therefore robust to the multimodal posteriors caused by sign switching, label switching, and parameterization switching in latent variable models. DIC_i is asymptotically equivalent to WAIC in regular, correctly specified models but does not require pointwise likelihood factorization.">
+<meta property="og:description" content="Computes DIC_i, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for Bayesian model comparison (Xiao and Rabe-Hesketh, 2026, &lt;arXiv:2605.27844&gt;). DIC_i adds the variance-based penalty of Gelman, Hwang and Vehtari (2014, &lt;doi:10.1007/s11222-013-9416-2&gt;) to the posterior mean deviance instead of the plug-in deviance used by the classic DIC. By removing the plug-in deviance, DIC_i is invariant to reparameterization and therefore robust to the multimodal posteriors caused by sign switching, label switching, and parameterization switching in latent variable models. DIC_i is asymptotically equivalent to WAIC in regular, correctly specified models but does not require pointwise likelihood factorization.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -61,26 +61,26 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="dici">DICi<a class="anchor" aria-label="anchor" href="#dici"></a>
 </h1></div>
-<p>Parameterization-Invariant Deviance Information Criterion (DIC_i) for Bayesian Model Comparison</p>
+<p>Parameterization-Invariant Deviance Information Criterion (DIC<sub>i</sub>) for Bayesian Model Comparison</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The <code>DICi</code> package computes <strong>DIC_i</strong>, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for comparing latent variable models (Xiao and Rabe-Hesketh, 2026, <a href="https://arxiv.org/abs/2605.27844" class="external-link">arXiv:2605.27844</a>).</p>
-<p>DIC_i adds the variance-based penalty <span class="math inline">\(p_V = \tfrac12 \mathrm{Var}(D)\)</span> of Gelman et al. (2014) to the posterior <strong>mean</strong> deviance <span class="math inline">\(E[D(\theta)]\)</span>:</p>
+<p>The <code>DICi</code> package computes <strong>DIC<sub>i</sub></strong>, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for comparing latent variable models (Xiao and Rabe-Hesketh, 2026, <a href="https://arxiv.org/abs/2605.27844" class="external-link">arXiv:2605.27844</a>).</p>
+<p>DIC<sub>i</sub> adds the variance-based penalty <span class="math inline">\(p_V = \tfrac12 \mathrm{Var}(D)\)</span> of Gelman et al. (2014) to the posterior <strong>mean</strong> deviance <span class="math inline">\(E[D(\theta)]\)</span>:</p>
 <p><span class="math display">\[\mathrm{DIC}_i = E[D(\theta)] + \tfrac12 \mathrm{Var}[D(\theta)].\]</span></p>
-<p>Unlike the classic DIC, DIC_i never evaluates the deviance at a point estimate, so it:</p>
+<p>Unlike the classic DIC, DIC<sub>i</sub> never evaluates the deviance at a point estimate, so it:</p>
 <ul>
 <li>
 <strong>Never produces negative penalty terms</strong>, even under sign switching (factor analysis), label switching (mixture models), or parameterization switching (overfitted mixtures)</li>
 <li>
 <strong>Does not depend on plug-in estimates</strong>, so it is not destabilized by multimodal posteriors</li>
 <li>
-<strong>Is asymptotically equivalent to WAIC</strong>, but does not require pointwise likelihood factorization</li>
+<strong>Is asymptotically equivalent to WAIC</strong> in regular, correctly specified models, but does not require pointwise likelihood factorization</li>
 <li>
 <strong>Is computationally simple</strong>: only the posterior mean and variance of the marginal deviance are needed</li>
 </ul>
 <div class="section level3">
-<h3 id="how-dic_i-relates-to-other-criteria">How DIC_i relates to other criteria<a class="anchor" aria-label="anchor" href="#how-dic_i-relates-to-other-criteria"></a>
+<h3 id="how-dici-relates-to-other-criteria">How DIC<sub>i</sub> relates to other criteria<a class="anchor" aria-label="anchor" href="#how-dici-relates-to-other-criteria"></a>
 </h3>
 <table class="table">
 <colgroup>
@@ -96,7 +96,7 @@
 <tbody>
 <tr>
 <td>
-<strong>DIC_i</strong> (this package)</td>
+<strong>DIC<sub>i</sub></strong> (this package)</td>
 <td><span class="math inline">\(E[D(\theta)] + p_V\)</span></td>
 <td>Xiao &amp; Rabe-Hesketh (2026)</td>
 </tr>
@@ -108,14 +108,14 @@
 <td>Spiegelhalter et al. (2002)</td>
 </tr>
 <tr>
-<td>DIC_p (variance-based)</td>
+<td>DIC<sub>p</sub> (variance-based)</td>
 <td><span class="math inline">\(D(\bar\theta) + 2 p_V\)</span></td>
 <td>Gelman et al. (2014)</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p><strong>Note.</strong> The penalty <span class="math inline">\(p_V = \tfrac12\mathrm{Var}(D)\)</span> is <strong>Gelman et al. (2014)’s</strong> penalty — it is not new here. The contribution of DIC_i is to drop the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and use the posterior mean deviance <span class="math inline">\(E[D(\theta)]\)</span> instead, which is what makes the criterion invariant to reparameterization. The closely related <strong>DIC_p</strong> of Gelman et al. (2014) keeps <span class="math inline">\(D(\bar\theta)\)</span> and is therefore <strong>not</strong> robust to the multimodality this package targets — do not confuse the two.</p>
+<p><strong>Note.</strong> The penalty <span class="math inline">\(p_V = \tfrac12\mathrm{Var}(D)\)</span> is <strong>Gelman et al. (2014)’s</strong> penalty; it is not new here. The contribution of DIC<sub>i</sub> is to drop the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and use the posterior mean deviance <span class="math inline">\(E[D(\theta)]\)</span> instead, which is what makes the criterion invariant to reparameterization. The closely related <strong>DIC<sub>p</sub></strong> of Gelman et al. (2014) keeps <span class="math inline">\(D(\bar\theta)\)</span> and is therefore <strong>not</strong> robust to the multimodality this package targets, so the two should not be confused.</p>
 </blockquote>
 </div>
 </div>
@@ -182,13 +182,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"p_V = %.1f, p_WAIC = %.1f, p_LOO = %.1f\n"</span>,</span>
 <span>            <span class="va">dic_result</span><span class="op">$</span><span class="va">p_v</span>,</span>
 <span>            <span class="va">waic_result</span><span class="op">$</span><span class="va">estimates</span><span class="op">[</span><span class="st">"p_waic"</span>, <span class="st">"Estimate"</span><span class="op">]</span>,</span>
-<span>            <span class="va">loo_result</span><span class="op">$</span><span class="va">estimates</span><span class="op">[</span><span class="st">"p_loo"</span>, <span class="st">"Estimate"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># p_V = 19.0, p_WAIC = 17.4, p_LOO = 17.4</span></span></code></pre></div>
+<span>            <span class="va">loo_result</span><span class="op">$</span><span class="va">estimates</span><span class="op">[</span><span class="st">"p_loo"</span>, <span class="st">"Estimate"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="running-the-full-example">Running the full example<a class="anchor" aria-label="anchor" href="#running-the-full-example"></a>
 </h2>
-<p>The package includes a complete factor analysis example demonstrating sign switching. The example simulates data, fits a one-factor model in Stan with symmetric priors, computes DIC_i alongside classic DIC / DIC_p / WAIC / LOO, and shows that DIC_i remains stable while the classic DIC penalty becomes negative.</p>
+<p>The package includes a complete factor analysis example demonstrating sign switching. The example simulates data, fits a one-factor model in Stan with symmetric priors, computes DIC<sub>i</sub> alongside classic DIC / DIC<sub>p</sub> / WAIC / LOO, and shows that DIC<sub>i</sub> remains stable while the classic DIC penalty becomes negative.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DoriaXiao/DIC_i" class="external-link">DICi</a></span><span class="op">)</span></span>
 <span></span>
@@ -211,7 +210,7 @@
     LOO-CV     =   5725.1  (p_LOO  =  18.0)
   ------------------------------------------
   Plug-in-dependent criteria:
-    DIC (class)=   5706.8  (p_DIC  =  -0.0)
+    DIC classic=   5706.8  (p_DIC  =  -0.0)
     DIC_p      =   5742.3   [Gelman et al., 2014]
   ------------------------------------------
   True k       = 18

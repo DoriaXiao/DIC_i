@@ -1,14 +1,15 @@
 # DICi: Parameterization-Invariant Deviance Information Criterion
 
-Computes DIC_i, a parameterization-invariant, plug-in-free version of
-the Deviance Information Criterion for Bayesian model comparison in
-latent variable models (Xiao and Rabe-Hesketh, 2026).
+Computes \\\mathrm{DIC}\_i\\, a parameterization-invariant, plug-in-free
+version of the Deviance Information Criterion for Bayesian model
+comparison in latent variable models (Xiao and Rabe-Hesketh, 2026).
 
 ## Main functions
 
 - [`compute_dic_i()`](https://doriaxiao.github.io/DIC_i/reference/compute_dic_i.md):
 
-  Compute DIC_i from a log-likelihood matrix or deviance draws.
+  Compute \\\mathrm{DIC}\_i\\ from a log-likelihood matrix or deviance
+  draws.
 
 - [`dic_i_from_cmdstanr()`](https://doriaxiao.github.io/DIC_i/reference/dic_i_from_cmdstanr.md):
 
@@ -16,7 +17,7 @@ latent variable models (Xiao and Rabe-Hesketh, 2026).
 
 - [`compare_dic_i()`](https://doriaxiao.github.io/DIC_i/reference/compare_dic_i.md):
 
-  Compare DIC_i across multiple models.
+  Compare \\\mathrm{DIC}\_i\\ across multiple models.
 
 - [`dici_example()`](https://doriaxiao.github.io/DIC_i/reference/dici_example.md):
 

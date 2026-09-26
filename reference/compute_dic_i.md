@@ -1,11 +1,11 @@
 # Compute the Parameterization-Invariant DIC (DIC_i)
 
-Computes DIC_i, the parameterization-invariant Deviance Information
-Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike the classic
-DIC, DIC_i does not depend on a plug-in estimate of the deviance and is
-therefore robust to the multimodal posteriors caused by sign switching,
-label switching, and parameterization switching in latent variable
-models.
+Computes \\\mathrm{DIC}\_i\\, the parameterization-invariant Deviance
+Information Criterion proposed by Xiao and Rabe-Hesketh (2026). Unlike
+the classic DIC, \\\mathrm{DIC}\_i\\ does not depend on a plug-in
+estimate of the deviance and is therefore robust to the multimodal
+posteriors caused by sign switching, label switching, and
+parameterization switching in latent variable models.
 
 ## Usage
 
@@ -46,7 +46,7 @@ A named list of class `"DICi"` with components:
 
 - `dic_i`:
 
-  The DIC_i value: \\\bar{D} + p_V\\.
+  The \\\mathrm{DIC}\_i\\ value: \\\bar{D} + p_V\\.
 
 - `p_v`:
 
@@ -59,8 +59,9 @@ A named list of class `"DICi"` with components:
 
 ## Details
 
-DIC_i is defined as: \$\$\mathrm{DIC}\_i = E\_{\theta\|y}\[D(\theta)\] +
-\frac{1}{2} \mathrm{Var}\_{\theta\|y}\[D(\theta)\]\$\$
+\\\mathrm{DIC}\_i\\ is defined as: \$\$\mathrm{DIC}\_i =
+E\_{\theta\|y}\[D(\theta)\] + \frac{1}{2}
+\mathrm{Var}\_{\theta\|y}\[D(\theta)\]\$\$
 
 where \\D(\theta) = -2 \log f_m(y \mid \theta)\\ is the marginal
 deviance. The criterion adds the variance-based penalty \\p_V =
@@ -68,15 +69,18 @@ deviance. The criterion adds the variance-based penalty \\p_V =
 mean deviance. Both terms are invariant to reparameterization of the
 model parameters, and \\p_V\\ is always non-negative.
 
-The "i" in DIC_i stands for (parameterization-)**i**nvariant. The key
-difference from the related variance-based DIC of Gelman et al. (2014),
-here denoted \\\mathrm{DIC}\_p = D(\bar{\theta}) + 2 p_V\\, is that
-DIC_i uses the posterior **mean** deviance \\E\[D(\theta)\]\\ in place
-of the plug-in deviance \\D(\bar{\theta})\\. The plug-in deviance is
-what makes the classic DIC (and DIC_p) unstable under multimodality, so
-removing it is what gives DIC_i its invariance. DIC_i is asymptotically
-equivalent to the WAIC (Watanabe, 2010) but does not require the
-likelihood to factorize into independent pointwise contributions.
+The "i" in \\\mathrm{DIC}\_i\\ stands for
+(parameterization-)**i**nvariant. The key difference from the related
+variance-based DIC of Gelman et al. (2014), here denoted
+\\\mathrm{DIC}\_p = D(\bar{\theta}) + 2 p_V\\, is that
+\\\mathrm{DIC}\_i\\ uses the posterior **mean** deviance
+\\E\[D(\theta)\]\\ in place of the plug-in deviance \\D(\bar{\theta})\\.
+The plug-in deviance is what makes the classic DIC (and
+\\\mathrm{DIC}\_p\\) unstable under multimodality, so removing it is
+what gives \\\mathrm{DIC}\_i\\ its invariance. In regular, correctly
+specified models, \\\mathrm{DIC}\_i\\ is asymptotically equivalent to
+the WAIC (Watanabe, 2010) but does not require the likelihood to
+factorize into independent pointwise contributions.
 
 ### Marginal vs. conditional log-likelihoods
 
@@ -92,8 +96,8 @@ draws).
   are marginal. This is the recommended workflow.
 
 - **JAGS/BUGS:** These programs typically sample latent variables and
-  report conditional likelihoods. To use DIC_i, you would need to
-  compute the marginal likelihood yourself, which requires
+  report conditional likelihoods. To use \\\mathrm{DIC}\_i\\, you would
+  need to compute the marginal likelihood yourself, which requires
   model-specific integration (analytic for linear mixed models,
   numerical otherwise).
 

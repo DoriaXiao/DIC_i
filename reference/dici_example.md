@@ -22,8 +22,8 @@ dici_example(name = NULL, copy = TRUE)
 
   `"example_fa.R"`
 
-  :   Complete R script: simulate data, fit in Stan, compute DIC_i,
-      compare with WAIC/LOO.
+  :   Complete R script: simulate data, fit in Stan, compute
+      \\\mathrm{DIC}\_i\\, compare with WAIC/LOO.
 
   If `NULL` (the default), lists all available example files.
 
