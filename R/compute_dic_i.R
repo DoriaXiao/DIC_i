@@ -28,7 +28,7 @@
 #'     \item{`dic_i`}{The DIC_i value: \eqn{\bar{D} + p_V}.}
 #'     \item{`p_v`}{The variance-based effective number of parameters
 #'       \eqn{p_V = \frac{1}{2} \mathrm{Var}(D(\theta))} of Gelman et al.
-#'       (2014b).}
+#'       (2014).}
 #'     \item{`e_d`}{The posterior mean deviance \eqn{\bar{D} =
 #'       E[D(\theta)]}.}
 #'   }
@@ -40,12 +40,12 @@
 #'
 #' where \eqn{D(\theta) = -2 \log f_m(y \mid \theta)} is the marginal
 #' deviance. The criterion adds the variance-based penalty
-#' \eqn{p_V = \frac{1}{2} \mathrm{Var}(D)} of Gelman et al. (2014b) to the
-#' posterior mean deviance. Both terms are always non-negative and invariant
-#' to reparameterization of the model parameters.
+#' \eqn{p_V = \frac{1}{2} \mathrm{Var}(D)} of Gelman et al. (2014) to the
+#' posterior mean deviance. Both terms are invariant to reparameterization of
+#' the model parameters, and \eqn{p_V} is always non-negative.
 #'
 #' The "i" in DIC_i stands for (parameterization-)**i**nvariant. The key
-#' difference from the related variance-based DIC of Gelman et al. (2014b),
+#' difference from the related variance-based DIC of Gelman et al. (2014),
 #' here denoted \eqn{\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V}, is that DIC_i
 #' uses the posterior **mean** deviance \eqn{E[D(\theta)]} in place of the
 #' plug-in deviance \eqn{D(\bar{\theta})}. The plug-in deviance is what makes

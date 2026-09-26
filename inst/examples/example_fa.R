@@ -87,7 +87,7 @@ D_plugin <- -2 * sum(colMeans(log_lik))
 p_DIC <- D_bar - D_plugin
 DIC_classical <- D_bar + 2 * p_DIC   # = 2 * D_bar - D_plugin
 
-# DIC_p (Gelman et al., 2014b): plug-in deviance + variance penalty.
+# DIC_p (Gelman et al., 2014): plug-in deviance + variance penalty.
 # Distinct from DIC_i, which uses the posterior mean deviance instead.
 DIC_p <- D_plugin + 2 * result$p_v
 
@@ -114,7 +114,7 @@ cat(sprintf("    LOO-CV     = %8.1f  (p_LOO  = %5.1f)\n",
 cat("  ------------------------------------------\n")
 cat("  Plug-in-dependent criteria:\n")
 cat(sprintf("    DIC (class)= %8.1f  (p_DIC  = %5.1f)\n", DIC_classical, p_DIC))
-cat(sprintf("    DIC_p      = %8.1f   [Gelman et al., 2014b]\n", DIC_p))
+cat(sprintf("    DIC_p      = %8.1f   [Gelman et al., 2014]\n", DIC_p))
 cat("  ------------------------------------------\n")
 cat(sprintf("  True k       = %d\n", 3 * P))
 cat("==========================================\n")
