@@ -130,9 +130,16 @@ dici_example("example_fa.R")
 source("example_fa.R")
 ```
 
-Expected output includes a comparison table:
+Output from a run with R 4.5.1 and CmdStan 2.37.0 (sampling seed 42; other
+versions or platforms can give different draws). The chains ended up in both
+sign modes of the loadings, so the plug-in deviance is inflated and the
+classic penalty is negative:
 
 ```
+  Rank-normalized R-hat: 1.530
+  Basic split R-hat:     13.571
+  >>> Large basic split R-hat indicates sign switching between chains.
+...
 ==========================================
   Information Criteria Comparison
 ==========================================
@@ -142,11 +149,16 @@ Expected output includes a comparison table:
     LOO-CV     =   5725.1  (p_LOO  =  18.0)
   ------------------------------------------
   Plug-in-dependent criteria:
-    DIC classic=   5706.8  (p_DIC  =  -0.0)
-    DIC_p      =   5742.3   [Gelman et al., 2014]
+    DIC classic=   5489.1  (p_DIC  = -217.7)
+    DIC_p      =   5960.0   [Gelman et al., 2014]
   ------------------------------------------
   True k       = 18
 ==========================================
+
+  >>> p_DIC is NEGATIVE: sign switching detected!
+  >>> Classic DIC and Gelman's DIC_p are meaningless (both use the
+  >>> plug-in deviance D(theta-bar)).
+  >>> DIC_i remains stable and close to WAIC.
 ```
 
 ## Marginal log-likelihoods required
