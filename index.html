@@ -200,8 +200,12 @@
 <span></span>
 <span><span class="co"># Run the full demo (requires cmdstanr)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"example_fa.R"</span><span class="op">)</span></span></code></pre></div>
-<p>Expected output includes a comparison table:</p>
-<pre><code>==========================================
+<p>Output from a run with R 4.5.1 and CmdStan 2.37.0 (sampling seed 42; other versions or platforms can give different draws). The chains ended up in both sign modes of the loadings, so the plug-in deviance is inflated and the classic penalty is negative:</p>
+<pre><code>  Rank-normalized R-hat: 1.530
+  Basic split R-hat:     13.571
+  &gt;&gt;&gt; Large basic split R-hat indicates sign switching between chains.
+...
+==========================================
   Information Criteria Comparison
 ==========================================
   Plug-in-free criteria:
@@ -210,11 +214,16 @@
     LOO-CV     =   5725.1  (p_LOO  =  18.0)
   ------------------------------------------
   Plug-in-dependent criteria:
-    DIC classic=   5706.8  (p_DIC  =  -0.0)
-    DIC_p      =   5742.3   [Gelman et al., 2014]
+    DIC classic=   5489.1  (p_DIC  = -217.7)
+    DIC_p      =   5960.0   [Gelman et al., 2014]
   ------------------------------------------
   True k       = 18
-==========================================</code></pre>
+==========================================
+
+  &gt;&gt;&gt; p_DIC is NEGATIVE: sign switching detected!
+  &gt;&gt;&gt; Classic DIC and Gelman's DIC_p are meaningless (both use the
+  &gt;&gt;&gt; plug-in deviance D(theta-bar)).
+  &gt;&gt;&gt; DIC_i remains stable and close to WAIC.</code></pre>
 </div>
 <div class="section level2">
 <h2 id="marginal-log-likelihoods-required">Marginal log-likelihoods required<a class="anchor" aria-label="anchor" href="#marginal-log-likelihoods-required"></a>

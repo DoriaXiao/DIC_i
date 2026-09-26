@@ -119,9 +119,17 @@ log_lik <- unclass(log_lik)
 waic_result <- waic(log_lik)
 loo_result  <- loo(log_lik)
 
-# Classic DIC
+# Classic DIC: plug-in deviance at the posterior means of the parameters
+# (averaging the pointwise log-likelihoods instead would give D_bar exactly)
+alpha_bar  <- colMeans(fit$draws("alpha",  format = "draws_matrix"))
+lambda_bar <- colMeans(fit$draws("lambda", format = "draws_matrix"))
+sigma_bar  <- colMeans(fit$draws("sigma",  format = "draws_matrix"))
+V_bar <- tcrossprod(lambda_bar) + diag(sigma_bar^2)
+R_bar <- chol(V_bar)
+Z_bar <- backsolve(R_bar, t(Y) - alpha_bar, transpose = TRUE)
+
 D_bar    <- mean(-2 * rowSums(log_lik))
-D_plugin <- -2 * sum(colMeans(log_lik))
+D_plugin <- N * P * log(2 * pi) + 2 * N * sum(log(diag(R_bar))) + sum(Z_bar^2)
 p_DIC    <- D_bar - D_plugin
 
 cat(sprintf("DIC_i:         %8.1f  (p_V    = %5.1f)\n", result$dic_i, result$p_v))
@@ -132,10 +140,11 @@ cat(sprintf("LOO-CV:        %8.1f  (p_LOO  = %5.1f)\n",
             loo_result$estimates["looic", "Estimate"],
             loo_result$estimates["p_loo", "Estimate"]))
 cat(sprintf("DIC (classic): p_DIC = %.1f\n", p_DIC))
-# Expected output:
-#   DIC_i, WAIC, LOO-CV all agree closely (~5724-5725)
-#   p_V, p_WAIC, p_LOO all near true k=18
-#   p_DIC is negative (sign switching detected)
+# Output from a run with R 4.5.1 and CmdStan 2.37.0 (other versions or
+# platforms can give different draws):
+#   DIC_i = 5724.5, WAIC = 5725.0, LOO-CV = 5725.1
+#   p_V = 17.7, p_WAIC = 18.0, p_LOO = 18.0 (true k = 18)
+#   p_DIC = -217.7: negative because the chains switched sign
 ```
 
 ## Applying to your own models
