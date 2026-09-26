@@ -10,7 +10,7 @@ latent variable models (Xiao and Rabe-Hesketh, 2026,
 [arXiv:2605.27844](https://arxiv.org/abs/2605.27844)).
 
 DIC_i adds the variance-based penalty $p_V = \tfrac12 \mathrm{Var}(D)$ of
-Gelman et al. (2014b) to the posterior **mean** deviance $E[D(\theta)]$:
+Gelman et al. (2014) to the posterior **mean** deviance $E[D(\theta)]$:
 
 $$\mathrm{DIC}_i = E[D(\theta)] + \tfrac12 \mathrm{Var}[D(\theta)].$$
 
@@ -33,14 +33,14 @@ estimate, so it:
 |---|---|---|
 | **DIC_i** (this package) | $E[D(\theta)] + p_V$ | Xiao & Rabe-Hesketh (2026) |
 | Classic DIC | $D(\bar\theta) + 2 p_{\mathrm{DIC}}$,  $p_{\mathrm{DIC}} = E[D] - D(\bar\theta)$ | Spiegelhalter et al. (2002) |
-| DIC_p (variance-based) | $D(\bar\theta) + 2 p_V$ | Gelman et al. (2014b) |
+| DIC_p (variance-based) | $D(\bar\theta) + 2 p_V$ | Gelman et al. (2014) |
 
 > **Note.** The penalty $p_V = \tfrac12\mathrm{Var}(D)$ is **Gelman et al.
-> (2014b)'s** penalty — it is not new here. The contribution of DIC_i is to
+> (2014)'s** penalty — it is not new here. The contribution of DIC_i is to
 > drop the plug-in deviance $D(\bar\theta)$ and use the posterior mean
 > deviance $E[D(\theta)]$ instead, which is what makes the criterion
 > invariant to reparameterization. The closely related **DIC_p** of Gelman
-> et al. (2014b) keeps $D(\bar\theta)$ and is therefore **not** robust to the
+> et al. (2014) keeps $D(\bar\theta)$ and is therefore **not** robust to the
 > multimodality this package targets — do not confuse the two.
 
 ## Installation
@@ -144,7 +144,7 @@ Expected output includes a comparison table:
   ------------------------------------------
   Plug-in-dependent criteria:
     DIC (class)=   5706.8  (p_DIC  =  -0.0)
-    DIC_p      =   5742.3   [Gelman et al., 2014b]
+    DIC_p      =   5742.3   [Gelman et al., 2014]
   ------------------------------------------
   True k       = 18
 ==========================================

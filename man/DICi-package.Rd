@@ -40,6 +40,7 @@ Xiao, X. and Rabe-Hesketh, S. (2026). A Parameterization-Invariant DIC.
 Useful links:
 \itemize{
   \item \url{https://github.com/DoriaXiao/DIC_i}
+  \item \url{https://doriaxiao.github.io/DIC_i/}
   \item Report bugs at \url{https://github.com/DoriaXiao/DIC_i/issues}
 }
 
