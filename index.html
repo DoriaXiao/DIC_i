@@ -66,7 +66,7 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The <code>DICi</code> package computes <strong>DIC_i</strong>, a parameterization-invariant, plug-in-free version of the Deviance Information Criterion for comparing latent variable models (Xiao and Rabe-Hesketh, 2026, <a href="https://arxiv.org/abs/2605.27844" class="external-link">arXiv:2605.27844</a>).</p>
-<p>DIC_i adds the variance-based penalty <span class="math inline">\(p_V = \tfrac12 \mathrm{Var}(D)\)</span> of Gelman et al. (2014b) to the posterior <strong>mean</strong> deviance <span class="math inline">\(E[D(\theta)]\)</span>:</p>
+<p>DIC_i adds the variance-based penalty <span class="math inline">\(p_V = \tfrac12 \mathrm{Var}(D)\)</span> of Gelman et al. (2014) to the posterior <strong>mean</strong> deviance <span class="math inline">\(E[D(\theta)]\)</span>:</p>
 <p><span class="math display">\[\mathrm{DIC}_i = E[D(\theta)] + \tfrac12 \mathrm{Var}[D(\theta)].\]</span></p>
 <p>Unlike the classic DIC, DIC_i never evaluates the deviance at a point estimate, so it:</p>
 <ul>
@@ -110,12 +110,12 @@
 <tr>
 <td>DIC_p (variance-based)</td>
 <td><span class="math inline">\(D(\bar\theta) + 2 p_V\)</span></td>
-<td>Gelman et al. (2014b)</td>
+<td>Gelman et al. (2014)</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p><strong>Note.</strong> The penalty <span class="math inline">\(p_V = \tfrac12\mathrm{Var}(D)\)</span> is <strong>Gelman et al. (2014b)’s</strong> penalty — it is not new here. The contribution of DIC_i is to drop the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and use the posterior mean deviance <span class="math inline">\(E[D(\theta)]\)</span> instead, which is what makes the criterion invariant to reparameterization. The closely related <strong>DIC_p</strong> of Gelman et al. (2014b) keeps <span class="math inline">\(D(\bar\theta)\)</span> and is therefore <strong>not</strong> robust to the multimodality this package targets — do not confuse the two.</p>
+<p><strong>Note.</strong> The penalty <span class="math inline">\(p_V = \tfrac12\mathrm{Var}(D)\)</span> is <strong>Gelman et al. (2014)’s</strong> penalty — it is not new here. The contribution of DIC_i is to drop the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and use the posterior mean deviance <span class="math inline">\(E[D(\theta)]\)</span> instead, which is what makes the criterion invariant to reparameterization. The closely related <strong>DIC_p</strong> of Gelman et al. (2014) keeps <span class="math inline">\(D(\bar\theta)\)</span> and is therefore <strong>not</strong> robust to the multimodality this package targets — do not confuse the two.</p>
 </blockquote>
 </div>
 </div>
@@ -212,7 +212,7 @@
   ------------------------------------------
   Plug-in-dependent criteria:
     DIC (class)=   5706.8  (p_DIC  =  -0.0)
-    DIC_p      =   5742.3   [Gelman et al., 2014b]
+    DIC_p      =   5742.3   [Gelman et al., 2014]
   ------------------------------------------
   True k       = 18
 ==========================================</code></pre>

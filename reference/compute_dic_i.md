@@ -47,7 +47,7 @@ A named list of class `"DICi"` with components:
 - `p_v`:
 
   The variance-based effective number of parameters \\p_V = \frac{1}{2}
-  \mathrm{Var}(D(\theta))\\ of Gelman et al. (2014b).
+  \mathrm{Var}(D(\theta))\\ of Gelman et al. (2014).
 
 - `e_d`:
 
@@ -60,12 +60,12 @@ DIC_i is defined as: \$\$\mathrm{DIC}\_i = E\_{\theta\|y}\[D(\theta)\] +
 
 where \\D(\theta) = -2 \log f_m(y \mid \theta)\\ is the marginal
 deviance. The criterion adds the variance-based penalty \\p_V =
-\frac{1}{2} \mathrm{Var}(D)\\ of Gelman et al. (2014b) to the posterior
-mean deviance. Both terms are always non-negative and invariant to
-reparameterization of the model parameters.
+\frac{1}{2} \mathrm{Var}(D)\\ of Gelman et al. (2014) to the posterior
+mean deviance. Both terms are invariant to reparameterization of the
+model parameters, and \\p_V\\ is always non-negative.
 
 The "i" in DIC_i stands for (parameterization-)**i**nvariant. The key
-difference from the related variance-based DIC of Gelman et al. (2014b),
+difference from the related variance-based DIC of Gelman et al. (2014),
 here denoted \\\mathrm{DIC}\_p = D(\bar{\theta}) + 2 p_V\\, is that
 DIC_i uses the posterior **mean** deviance \\E\[D(\theta)\]\\ in place
 of the plug-in deviance \\D(\bar{\theta})\\. The plug-in deviance is

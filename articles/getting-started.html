@@ -82,7 +82,7 @@
 </h2>
 <p>DIC_i is a parameterization-invariant, plug-in-free version of the
 Deviance Information Criterion for Bayesian model comparison. It adds
-the variance-based penalty of Gelman et al. (2014b) to the posterior
+the variance-based penalty of Gelman et al. (2014) to the posterior
 <strong>mean</strong> deviance, rather than to the unstable plug-in
 deviance used by the classic DIC:</p>
 <p><span class="math display">\[\mathrm{DIC}_i = E[D(\theta)] +
@@ -93,7 +93,7 @@ always non-negative, and because DIC_i never evaluates the deviance at a
 point estimate, the whole criterion is invariant to
 reparameterization.</p>
 <p>This is what distinguishes DIC_i from the related variance-based DIC
-of Gelman et al. (2014b), <span class="math inline">\(\mathrm{DIC}_p =
+of Gelman et al. (2014), <span class="math inline">\(\mathrm{DIC}_p =
 D(\bar\theta) + 2 p_V\)</span>, which keeps the plug-in deviance <span class="math inline">\(D(\bar\theta)\)</span> and so remains unstable
 under multimodality.</p>
 </div>

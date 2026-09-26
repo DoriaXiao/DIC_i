@@ -96,7 +96,7 @@ output) and pointwise log-likelihoods are not.</p></dd>
 <dt><code>p_v</code></dt>
 <dd><p>The variance-based effective number of parameters
 \(p_V = \frac{1}{2} \mathrm{Var}(D(\theta))\) of Gelman et al.
-(2014b).</p></dd>
+(2014).</p></dd>
 
 <dt><code>e_d</code></dt>
 <dd><p>The posterior mean deviance \(\bar{D} =
@@ -111,11 +111,11 @@ $$\mathrm{DIC}_i = E_{\theta|y}[D(\theta)] + \frac{1}{2}
   \mathrm{Var}_{\theta|y}[D(\theta)]$$</p>
 <p>where \(D(\theta) = -2 \log f_m(y \mid \theta)\) is the marginal
 deviance. The criterion adds the variance-based penalty
-\(p_V = \frac{1}{2} \mathrm{Var}(D)\) of Gelman et al. (2014b) to the
-posterior mean deviance. Both terms are always non-negative and invariant
-to reparameterization of the model parameters.</p>
+\(p_V = \frac{1}{2} \mathrm{Var}(D)\) of Gelman et al. (2014) to the
+posterior mean deviance. Both terms are invariant to reparameterization of
+the model parameters, and \(p_V\) is always non-negative.</p>
 <p>The "i" in DIC_i stands for (parameterization-)<strong>i</strong>nvariant. The key
-difference from the related variance-based DIC of Gelman et al. (2014b),
+difference from the related variance-based DIC of Gelman et al. (2014),
 here denoted \(\mathrm{DIC}_p = D(\bar{\theta}) + 2 p_V\), is that DIC_i
 uses the posterior <strong>mean</strong> deviance \(E[D(\theta)]\) in place of the
 plug-in deviance \(D(\bar{\theta})\). The plug-in deviance is what makes

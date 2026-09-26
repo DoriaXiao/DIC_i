@@ -44,6 +44,8 @@ Useful links:
 
 - <https://github.com/DoriaXiao/DIC_i>
 
+- <https://doriaxiao.github.io/DIC_i/>
+
 - Report bugs at <https://github.com/DoriaXiao/DIC_i/issues>
 
 ## Author
